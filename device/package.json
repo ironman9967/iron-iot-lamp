@@ -1,0 +1,15 @@
+{
+	"name": "iron-iot-lamp-device",
+	"version": "0.0.1",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"mos-set-port": "export MOS_PORT=/dev/cu.SLAB_USBtoUART",
+		"mos-put": "./mos put",
+		"reboot": "./mos call Sys.Reboot",
+		"monitor": "./mos console",
+		"start": "npm run mos-set-port && npm run mos-put -- init.js && npm run reboot && npm run monitor"
+	},
+	"author": "",
+	"license": "ISC"
+}
