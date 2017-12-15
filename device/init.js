@@ -2,7 +2,6 @@
 load('api_config.js');
 load('api_gpio.js');
 load('api_mqtt.js');
-load('api_sys.js');
 
 let configTopic = '/devices/' + Cfg.get('device.id') + '/config';
 let stateTopic = '/devices/' + Cfg.get('device.id') + '/state';
