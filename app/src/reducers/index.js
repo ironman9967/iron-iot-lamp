@@ -1,9 +1,8 @@
 
+import app from './app'
+import light from './light'
+
 export default {
-	app: (state = {
-	    started: new Date().getTime()
-	}, action) => ({
-		...state,
-		...action
-	})
+	app,
+	light
 }

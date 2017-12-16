@@ -3,40 +3,66 @@ import React from 'react'
 // import { Redirect } from 'react-router'
 import { connect } from 'react-redux'
 import AppBar from 'material-ui/AppBar';
-import RaisedButton from 'material-ui/RaisedButton';
+import Toggle from 'material-ui/Toggle';
 
-import { switchLight } from '../../actions'
-
-const style = {
-  margin: 12,
-};
-
-const Home = ({
+import { light } from '../../actions'
+const {
 	turnOn,
 	turnOff
+} = light
+
+const styles = {
+	block: {
+		maxWidth: 250
+	},
+	toggle: {
+		marginTop: 16,
+		marginLeft: 16,
+		marginBottom: 16
+	},
+	thumbOff: {
+		backgroundColor: '#ffcccc'
+	},
+	trackOff: {
+		backgroundColor: '#ff9d9d'
+	},
+	thumbSwitched: {
+		backgroundColor: 'red'
+	},
+	trackSwitched: {
+		backgroundColor: '#ff9d9d'
+	},
+	labelStyle: {
+		color: 'red'
+	}
+}
+
+const Home = ({
+	switchLight
 }) => (
-    <div>
+	<div>
 		<AppBar
 			title="iron iot lamp"
 			showMenuIconButton={false}
 			iconClassNameRight="muidocs-icon-navigation-expand-more"
 		/>
-		<RaisedButton label="Turn Light On"
-			primary={true}
-			style={style}
-			onClick={turnOn} />
-		<RaisedButton label="Turn Light Off"
-			primary={true}
-			style={style}
-			onClick={turnOff} />
-    </div>
+		<div style={styles.block}>
+			<Toggle
+		      label="Light"
+		      style={styles.toggle}
+
+			  onToggle={(event, isInputChecked) => switchLight(isInputChecked)}
+		    />
+	    </div>
+	</ div>
 )
 
-const mapState = () => ({})
+const mapState = ({
+	switchLight
+}) => ({})
 
 const mapDispatch = dispatch => ({
-	turnOn: () => dispatch(switchLight.turnOn()),
-	turnOff: () => dispatch(switchLight.turnOff())
+	switchLight: on => dispatch(on ? turnOn() : turnOff())
 })
 
 export default connect(mapState, mapDispatch)(Home)

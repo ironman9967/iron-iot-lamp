@@ -1,2 +1,2 @@
 
-export { default as switchLight } from './switch-light'
+export { default as light } from './light'
