@@ -13,6 +13,19 @@ import {
 	createLightRoutes
 } from './routes'
 
+import { createPubsub } from './gcp-pubsub'
+const pubsub = createPubsub({
+	projectId: process.env.npm_package_config_gcpProjectId,
+	keyFilename: path.resolve(process.env.npm_package_config_gcpPubSubKeyfilePath)
+})
+const deviceConfigTopic = pubsub.topic(process.env.npm_package_config_gcpIotDeviceConfigTopic)
+const deviceConfigPublisher = deviceConfigTopic.publisher()
+deviceConfigPublisher.publish(new Buffer(JSON.stringify({commands:[]})))
+	.then((...args) => {
+		console.log('publish resolve', args)
+	})
+	.catch(err => console.error('publish error', err))
+
 const port = process.env.npm_package_config_port
 
 const app = path.resolve('../app/build')

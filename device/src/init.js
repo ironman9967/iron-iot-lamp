@@ -42,7 +42,7 @@ function handleCommand(command) {
 
 MQTT.sub(configTopic, function(conn, topic, msg) {
 	let config = JSON.parse(msg);
-	if (config.commands) {
+	if (config.commands && config.commands.length > 0) {
 		print("processing commands in config update");
 		for (let i = 0; i < config.commands.length; i++) {
 			handleCommand(config.commands[i]);

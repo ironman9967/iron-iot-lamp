@@ -3,7 +3,10 @@
   "version": "0.0.1",
   "description": "",
   "config": {
-    "port": 8080
+    "port": 8080,
+    "gcpProjectId": "iron-iot-lamp",
+    "gcpPubSubKeyfilePath": "../iron-iot-lamp-d3765252eb71.json",
+    "gcpIotDeviceConfigTopic": "projects/iron-iot-lamp/topics/config"
   },
   "main": "index.js",
   "scripts": {
@@ -21,14 +24,15 @@
     "url": "https://github.com/ironman9967/iron-iot-lamp/issues"
   },
   "homepage": "https://github.com/ironman9967/iron-iot-lamp#readme",
-  "devDependencies": {
+  "dependencies": {
     "@google-cloud/pubsub": "^0.16.0",
     "babel-cli": "^6.26.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "good": "^7.3.0",
     "hapi": "^17.1.1",
-    "inert": "^5.0.1"
+    "inert": "^5.0.1",
+    "npm-watch": "^0.3.0"
   },
   "babel": {
     "presets": [
