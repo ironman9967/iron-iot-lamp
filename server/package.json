@@ -7,6 +7,7 @@
   },
   "main": "index.js",
   "scripts": {
+    "watch": "npm-watch",
     "babel": "rm -rf dist && babel src --ignore node_modules --copy-files --out-dir dist",
     "start": "npm run babel && node dist/index.js"
   },
@@ -33,5 +34,14 @@
     "presets": [
       "env"
     ]
+  },
+  "watch": {
+    "start": {
+      "patterns": [
+        "src"
+      ],
+      "extenstions": "js,json",
+      "quiet": true
+    }
   }
 }

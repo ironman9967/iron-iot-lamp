@@ -7,13 +7,13 @@ import Inert from 'inert'
 
 const port = process.env.npm_package_config_port
 
-const appPublic = path.resolve('../app/build')
+const app = path.resolve('../app/build')
 
 const server = new Hapi.Server({
 	port,
 	routes: {
 		files: {
-			relativeTo: appPublic
+			relativeTo: app
 		}
 	}
 })
@@ -35,6 +35,6 @@ export async function provision() {
 
 	await server.start()
 	server.events.on('log', ({ data, tags }) => console.log(tags, data));
-	server.log(['info'], `serving app from ${appPublic}`)
+	server.log(['debug'], `serving app from ${app}`)
 	server.log(['info'], `server up on ${port}`)
 }
