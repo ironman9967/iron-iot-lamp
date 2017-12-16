@@ -4,9 +4,7 @@ export const createRoutes = ({
 }) => ([{
 	method: 'POST',
 	path: '/api/light/{route*}',
-	config: { payload: { allow: 'application/json' } },
-	handler: ({ path: url, method, params: { route } }, h) => {
-		log(['debug'], `${method.toUpperCase()} -> ${url}`)
+	handler: ({ params: { route } }, h) => {
 		const res = h.response()
 		res.statusCode = 200
 		return res

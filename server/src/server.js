@@ -6,7 +6,7 @@ import Hapi from 'hapi'
 import Inert from 'inert'
 
 import { createLogger } from './logger'
-const { logHandler } = createLogger()
+const { logHandler, requestLoggerExt } = createLogger()
 
 import {
 	createAppRoutes,
@@ -23,16 +23,17 @@ const server = new Hapi.Server({
 })
 
 const addRoute = route => server.route(route)
+const log = (...args) => server.log.apply(server, args)
 
 export async function provision() {
 	await server.register(Inert)
 
 	server.events.on('log', logHandler);
 
+	server.ext(requestLoggerExt({ log }))
+
 	createAppRoutes().forEach(addRoute)
-	createLightRoutes({
-		log: (...args) => server.log.apply(server, args)
-	}).forEach(addRoute)
+	createLightRoutes({ log }).forEach(addRoute)
 
 	await server.start()
 
