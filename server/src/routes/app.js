@@ -1,5 +1,5 @@
 
-export const createRoute = () => ({
+export const createRoutes = () => ([{
 	method: 'GET',
 	path: '/{param*}',
 	handler: {
@@ -9,4 +9,4 @@ export const createRoute = () => ({
 			index: true,
 		}
 	}
-})
+}])

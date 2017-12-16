@@ -1,6 +1,8 @@
 
-import { createRoute as createAppRoute } from './app'
+import { createRoutes as createAppRoutes } from './app'
+import { createRoutes as createLightRoutes } from './light'
 
 export {
-	createAppRoute
+	createAppRoutes,
+	createLightRoutes
 }

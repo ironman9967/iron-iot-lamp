@@ -9,7 +9,8 @@ import { createLogger } from './logger'
 const { logHandler } = createLogger()
 
 import {
-	createAppRoute
+	createAppRoutes,
+	createLightRoutes
 } from './routes'
 
 const port = process.env.npm_package_config_port
@@ -18,19 +19,18 @@ const app = path.resolve('../app/build')
 
 const server = new Hapi.Server({
 	port,
-	routes: {
-		files: {
-			relativeTo: app
-		}
-	}
+	routes: { files: { relativeTo: app } }
 })
+
+const addRoute = route => server.route(route)
 
 export async function provision() {
 	await server.register(Inert)
 
 	server.events.on('log', logHandler);
 
-    server.route(createAppRoute())
+	createAppRoutes().forEach(addRoute)
+	createLightRoutes().forEach(addRoute)
 
 	await server.start()
 
