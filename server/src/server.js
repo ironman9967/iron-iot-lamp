@@ -30,7 +30,9 @@ export async function provision() {
 	server.events.on('log', logHandler);
 
 	createAppRoutes().forEach(addRoute)
-	createLightRoutes().forEach(addRoute)
+	createLightRoutes({
+		log: (...args) => server.log.apply(server, args)
+	}).forEach(addRoute)
 
 	await server.start()
 

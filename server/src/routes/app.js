@@ -1,7 +1,7 @@
 
 export const createRoutes = () => ([{
 	method: 'GET',
-	path: '/{param*}',
+	path: '/{route*}',
 	handler: {
 		directory: {
 			path: '.',
