@@ -3,8 +3,8 @@ export const createRoutes = ({
 	log
 }) => ([{
 	method: 'POST',
-	path: '/api/light/{route*}',
-	handler: ({ params: { route } }, h) => {
+	path: '/api/light/on',
+	handler: (req, h) => {
 		const res = h.response()
 		res.statusCode = 200
 		return res
