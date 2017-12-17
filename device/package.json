@@ -4,6 +4,7 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
+		"watch": "npm-watch",
 		"mos-set-port": "export MOS_PORT=/dev/cu.SLAB_USBtoUART",
 		"mos-put": "./mos put",
 		"reboot": "./mos call Sys.Reboot",
@@ -11,5 +12,14 @@
 		"start": "npm run mos-set-port && npm run mos-put -- src/init.js && npm run reboot && npm run monitor"
 	},
 	"author": "",
-	"license": "ISC"
+	"license": "ISC",
+    "watch": {
+      "start": {
+        "patterns": [
+          "src"
+        ],
+        "extenstions": "js,json",
+        "quiet": true
+      }
+    }
 }

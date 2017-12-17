@@ -9,46 +9,24 @@ let stateTopic = '/devices/' + Cfg.get('device.id') + '/state';
 function pubState(state) {
 	let stateJson = JSON.stringify(state);
 	let ok = MQTT.pub(stateTopic, stateJson);
-	print('published state:', ok, stateJson);
-}
-
-let handlers = {
-	'turn-on': function () {
-		pubState({
-			light: {
-				on: true
-			}
-		})
-	},
-	'turn-off': function () {
-		pubState({
-			light: {
-				on: false
-			}
-		})
-	}
-};
-
-function handleCommand(command) {
-	print('handling command:', JSON.stringify(command));
-	let handler = handlers[command.type];
-	if (handler) {
-		handler(command.data);
+	if (ok === 1) {
+		print('published state successfully:', stateJson);
 	}
 	else {
-		print('ERROR: no handler found for command type - ' + command.type);
+		print('ERROR: publish failed')
 	}
 }
 
 MQTT.sub(configTopic, function(conn, topic, msg) {
+	print('config update: ' + msg);
 	let config = JSON.parse(msg);
-	if (config.commands && config.commands.length > 0) {
-		print("processing commands in config update");
-		for (let i = 0; i < config.commands.length; i++) {
-			handleCommand(config.commands[i]);
-		}
+	if (config.light.on) {
+		print('turning on light');
+		//TODO: turn on light
 	}
 	else {
-		print("no commands found in config update");
+		print('turning off light');
+		//TODO: turn off light
 	}
+	pubState(config);
 }, null);

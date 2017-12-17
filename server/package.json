@@ -1,52 +1,54 @@
 {
-  "name": "iron-iot-lamp-server",
-  "version": "0.0.1",
-  "description": "",
-  "config": {
-    "port": 8080,
-    "gcpProjectId": "iron-iot-lamp",
-    "gcpPubSubKeyfilePath": "../iron-iot-lamp-d3765252eb71.json",
-    "gcpIotDeviceConfigTopic": "projects/iron-iot-lamp/topics/config"
-  },
-  "main": "index.js",
-  "scripts": {
-    "watch": "npm-watch",
-    "babel": "rm -rf dist && babel src --ignore node_modules --copy-files --out-dir dist",
-    "start": "npm run babel && node dist/index.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ironman9967/iron-iot-lamp.git"
-  },
-  "author": "Tyson Hester",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/ironman9967/iron-iot-lamp/issues"
-  },
-  "homepage": "https://github.com/ironman9967/iron-iot-lamp#readme",
-  "dependencies": {
-    "@google-cloud/pubsub": "^0.16.0",
-    "babel-cli": "^6.26.0",
-    "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "good": "^7.3.0",
-    "hapi": "^17.1.1",
-    "inert": "^5.0.1",
-    "node-fetch": "^1.7.3",
-    "npm-watch": "^0.3.0"
-  },
-  "babel": {
-    "presets": [
-      "env"
-    ]
-  },
-  "watch": {
-    "start": {
-      "patterns": [
-        "src"
-      ],
-      "extenstions": "js,json",
-      "quiet": true
-    }
-  }
+	"name": "iron-iot-lamp-server",
+	"version": "0.0.1",
+	"description": "",
+	"config": {
+		"port": 8080,
+		"gcpDeviceStateSubKey": "../iron-iot-lamp.device-state-sub.json",
+		"gcpProject": "iron-iot-lamp",
+		"gcpIotRegistry": "iot-registry",
+		"gcpIotRegion": "us-central1"
+	},
+	"main": "index.js",
+	"scripts": {
+		"watch": "npm-watch",
+		"babel": "rm -rf dist && babel src --ignore node_modules --copy-files --out-dir dist",
+		"start": "npm run babel && node dist/index.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/ironman9967/iron-iot-lamp.git"
+	},
+	"author": "Tyson Hester",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/ironman9967/iron-iot-lamp/issues"
+	},
+	"homepage": "https://github.com/ironman9967/iron-iot-lamp#readme",
+	"dependencies": {
+		"@google-cloud/pubsub": "^0.16.0",
+		"babel-cli": "^6.26.0",
+		"babel-polyfill": "^6.26.0",
+		"babel-preset-env": "^1.6.1",
+		"good": "^7.3.0",
+		"hapi": "^17.1.1",
+		"inert": "^5.0.1",
+		"lodash": "^4.17.4",
+		"node-fetch": "^1.7.3",
+		"npm-watch": "^0.3.0"
+	},
+	"babel": {
+		"presets": [
+			"env"
+		]
+	},
+	"watch": {
+		"start": {
+			"patterns": [
+				"src"
+			],
+			"extenstions": "js,json",
+			"quiet": true
+		}
+	}
 }
