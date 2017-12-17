@@ -1,8 +1,12 @@
 
 import {
+	lamp
+} from '../device'
+
+const {
 	switchLightOnOrOffPath,
 	switchLampLight
-} from '../device'
+} = lamp
 
 export const createRoutes = ({
 	log

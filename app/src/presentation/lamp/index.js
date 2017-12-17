@@ -36,7 +36,7 @@ const styles = {
 	}
 }
 
-const Home = ({
+const Lamp = ({
 	switchLight
 }) => (
 	<div>
@@ -64,4 +64,4 @@ const mapDispatch = dispatch => ({
 	switchLight: on => dispatch(on ? turnOn() : turnOff())
 })
 
-export default connect(mapState, mapDispatch)(Home)
+export default connect(mapState, mapDispatch)(Lamp)

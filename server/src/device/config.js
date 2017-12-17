@@ -18,7 +18,9 @@ export const publishDeviceConfig = ({
 	delay = 250
 }) => new Promise((resolve, reject) => {
 	const deviceStateUpdate = new Subject()
-	const config = Object.assign(newConfig, { meta: { updatedAt: new Date().getTime() } })
+	const config = Object.assign(newConfig, {
+		meta: Object.assign(newConfig.meta, { updatedAt: new Date().getTime() })
+	})
 	log(['debug'], `publishing config: ${JSON.stringify(config)}`)
 
 	let timedout = false, complete = false
