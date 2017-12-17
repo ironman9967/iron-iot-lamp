@@ -1,8 +1,8 @@
 
 import { createRoutes as createAppRoutes } from './app'
-import { createRoutes as createLightRoutes } from './light'
+import { createRoutes as createDeviceRoutes } from './device'
 
 export {
 	createAppRoutes,
-	createLightRoutes
+	createDeviceRoutes
 }

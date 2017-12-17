@@ -10,7 +10,7 @@ const { logHandler, requestLoggerExt } = createLogger()
 
 import {
 	createAppRoutes,
-	createLightRoutes
+	createDeviceRoutes
 } from './routes'
 
 const port = process.env.npm_package_config_port
@@ -25,19 +25,6 @@ const server = new Hapi.Server({
 const addRoute = route => server.route(route)
 const log = (...args) => server.log.apply(server, args)
 
-import { publishDeviceConfig } from './device'
-publishDeviceConfig({
-	log,
-	project: process.env.npm_package_config_gcpProject,
-	registry: process.env.npm_package_config_gcpIotRegistry,
-	region: process.env.npm_package_config_gcpIotRegion,
-	deviceId: 'esp32_0683C4'
-}, { light: { on: true } }, {
-	filter: ({ light: { on } }) => on,
-	timeout: 10000,
-	delay: 250
-}).catch(console.error)
-
 export async function provision() {
 	await server.register(Inert)
 
@@ -46,7 +33,7 @@ export async function provision() {
 	server.ext(requestLoggerExt({ log }))
 
 	createAppRoutes().forEach(addRoute)
-	createLightRoutes({ log }).forEach(addRoute)
+	createDeviceRoutes({ log }).forEach(addRoute)
 
 	await server.start()
 

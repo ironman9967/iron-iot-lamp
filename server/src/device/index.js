@@ -4,6 +4,19 @@ import 'rxjs/add/operator/filter';
 
 import { pubDeviceConfig, getDeviceState } from '../gcp-iot-core'
 
+// import { publishDeviceConfig } from './device'
+// publishDeviceConfig({
+// 	log,
+// 	project: process.env.npm_package_config_gcpProject,
+// 	registry: process.env.npm_package_config_gcpIotRegistry,
+// 	region: process.env.npm_package_config_gcpIotRegion,
+// 	deviceId: 'esp32_0683C4'
+// }, { light: { on: true } }, {
+// 	filter: ({ light: { on } }) => on,
+// 	timeout: 10000,
+// 	delay: 250
+// }).catch(console.error)
+
 export const publishDeviceConfig = ({
 	log,
 	project,
@@ -12,8 +25,8 @@ export const publishDeviceConfig = ({
 	deviceId
 }, newConfig, {
 	filter,
-	timeout,
-	delay
+	timeout = 10000,
+	delay = 250
 }) => new Promise((resolve, reject) => {
 	const deviceStateUpdate = new Subject()
 	const config = Object.assign(newConfig, { meta: { updatedAt: new Date().getTime() } })
@@ -64,5 +77,10 @@ export const publishDeviceConfig = ({
 			}, reject)
 
 			monitor(delay)
+		})
+		.catch(err => {
+			log(['error'], err)
+			clearTimeout(updateTimeout)
+			reject(err)
 		})
 })
