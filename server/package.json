@@ -38,9 +38,8 @@
 		"npm-watch": "^0.3.0"
 	},
 	"babel": {
-		"presets": [
-			"env"
-		]
+		"plugins": [ "transform-object-rest-spread" ],
+		"presets": [ "env" ]
 	},
 	"watch": {
 		"start": {
@@ -50,5 +49,8 @@
 			"extenstions": "js,json",
 			"quiet": true
 		}
+	},
+	"devDependencies": {
+		"babel-plugin-transform-object-rest-spread": "^6.26.0"
 	}
 }
