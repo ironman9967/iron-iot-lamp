@@ -1,6 +1,5 @@
 
 import React from 'react'
-// import { Redirect } from 'react-router'
 import { connect } from 'react-redux'
 import AppBar from 'material-ui/AppBar';
 import Toggle from 'material-ui/Toggle';

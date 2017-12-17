@@ -1,8 +1,8 @@
 
 import app from './app'
-import light from './light'
+import lamp from './lamp'
 
 export default {
 	app,
-	light
+	lamp
 }

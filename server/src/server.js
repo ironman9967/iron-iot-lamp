@@ -10,7 +10,8 @@ const { logHandler, requestLoggerExt } = createLogger()
 
 import {
 	createAppRoutes,
-	createDeviceRoutes
+	createDevicesRoutes,
+	createLampRoutes
 } from './routes'
 
 const port = process.env.npm_package_config_port
@@ -33,7 +34,8 @@ export async function provision() {
 	server.ext(requestLoggerExt({ log }))
 
 	createAppRoutes().forEach(addRoute)
-	createDeviceRoutes({ log }).forEach(addRoute)
+	createDevicesRoutes({ log }).forEach(addRoute)
+	createLampRoutes({ log }).forEach(addRoute)
 
 	await server.start()
 
