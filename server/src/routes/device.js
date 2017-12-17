@@ -1,18 +1,30 @@
 
 import { publishDeviceConfig } from '../device'
 
+const createLampDeviceApiDescription = id => ({
+	id,
+	commands: {
+		light: {
+			on: `/api/devices/${id}/light/on`,
+			off: `/api/devices/${id}/light/off`
+		}
+	}
+})
+
 export const createRoutes = ({
 	log
 }) => ([{
 	method: 'GET',
 	path: '/api/devices',
-	handler: (req, h) => h.response(JSON.stringify([
-		{
-			id: 'esp32_0683C4'
-		}
-	]))
+	handler: (req, h) => {
+		const res = h.response(JSON.stringify([
+			createLampDeviceApiDescription('esp32_0683C4')
+		]))
+		res.headers = { 'content-type': 'application/json' }
+		return res
+	}
 }, {
-	method: 'POST',
+	method: 'GET',
 	path: '/api/devices/{deviceId}/light/{onOrOff}',
 	handler: ({ params: { deviceId, onOrOff } }, h) =>
 		publishDeviceConfig({
