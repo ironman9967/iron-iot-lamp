@@ -17,6 +17,9 @@ export const createLampDeviceApiDescription = ({ id, name }) => ({
 			on: switchLightOnOrOffPath(id, 'on'),
 			off: switchLightOnOrOffPath(id, 'off')
 		}
+	},
+	light: {
+		on: false
 	}
 })
 

@@ -19,7 +19,7 @@ export const publishDeviceConfig = ({
 }) => new Promise((resolve, reject) => {
 	const deviceStateUpdate = new Subject()
 	const config = Object.assign(newConfig, {
-		meta: Object.assign(newConfig.meta, { updatedAt: new Date().getTime() })
+		meta: Object.assign(newConfig.meta || {}, { updatedAt: new Date().getTime() })
 	})
 	log(['debug'], `publishing config: ${JSON.stringify(config)}`)
 

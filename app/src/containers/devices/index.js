@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 
 import { List, ListItem } from 'material-ui/List'
 
+import Lamp from '../../presentation/lamp'
+
 import { devices } from '../../actions'
 const { setDeviceList }  = devices
 
@@ -21,7 +23,9 @@ class Devices extends Component {
 					this.props.devices.map(({
 						id
 					}) => (
-						<ListItem primaryText={id} />
+						<ListItem primaryText={id} rightToggle={
+							<Lamp />
+						} />
 					))
 				}
 			</List>

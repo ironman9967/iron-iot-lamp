@@ -1,11 +1,15 @@
 
 import { lamp } from '../actions'
-const { TURN_ON } = lamp
+const { TURNED_ON } = lamp
 
 export default (state = {
-	on: false
+	light: {
+		on: false
+	}
 }, {
 	type
-}) => ({
-	on: type === TURN_ON
+}) => Object.assign(state, {
+	light: {
+		on: type === TURNED_ON
+	}
 })
