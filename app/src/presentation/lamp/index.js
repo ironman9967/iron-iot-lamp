@@ -1,8 +1,8 @@
 
 import React from 'react'
 import { connect } from 'react-redux'
-import AppBar from 'material-ui/AppBar';
-import Toggle from 'material-ui/Toggle';
+import AppBar from 'material-ui/AppBar'
+import Toggle from 'material-ui/Toggle'
 
 import { light } from '../../actions'
 const {

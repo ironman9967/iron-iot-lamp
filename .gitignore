@@ -5,3 +5,5 @@ iron-iot-lamp.*.json
 .DS_Store
 
 node_modules/
+
+google-oauth-secret.*.json

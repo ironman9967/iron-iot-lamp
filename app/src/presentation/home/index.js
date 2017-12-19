@@ -1,35 +1,38 @@
 
 import React, { Component } from 'react'
-// import { Redirect } from 'react-router'
 import { connect } from 'react-redux'
-import AppBar from 'material-ui/AppBar';
-import Toggle from 'material-ui/Toggle';
 
-import { lamp } from '../../actions'
-const {
-	turnOn,
-	turnOff
-} = lamp
+import { Redirect } from 'react-router'
 
-class Home extends Component {
-    componentWillMount() {
-		
-    }
+import AppBar from 'material-ui/AppBar'
+import IconButton from 'material-ui/IconButton'
+import ArrowBack from 'material-ui/svg-icons/navigation/arrow-back'
 
-    render() {
-        return (
-			<div>
-				<AppBar
-					title="iron iot"
-					showMenuIconButton={false}
-					iconClassNameRight="muidocs-icon-navigation-expand-more"
-				/>
-			</ div>
-        )
-    }
-}
+const Home = ({
+	isLoggedIn
+}) => (
+	<div>
+		<AppBar
+			title="iron iot"
+			showMenuIconButton={false}
+			iconClassNameRight="muidocs-icon-navigation-expand-more"
+    		iconElementLeft={<IconButton><ArrowBack /></IconButton>}
+		/>
+		{
+			isLoggedIn
+				? <Redirect to="/devices" />
+				: <Redirect to="/auth" />
+		}
+	</ div>
+)
 
-const mapState = () => ({})
+const mapState = ({
+	auth: {
+		isLoggedIn
+	}
+}) => ({
+	isLoggedIn
+})
 
 const mapDispatch = dispatch => ({})
 
