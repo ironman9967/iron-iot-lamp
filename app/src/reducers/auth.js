@@ -9,9 +9,24 @@ export default (state = {
 	clientId: clientId
 }, {
 	type,
-	tokenObj
-}) => type === LOGGED_IN ?
+	googleAuth,
+	err
+}) => {
+	switch (type) {
+		case LOGGED_IN:
+			return { ...state, err, googleAuth, isLoggedIn: true }
+		case LOGGED_OUT:
+			return { ...state, err, googleAuth: void 0, isLoggedIn: false }
+		default:
+			return state
+	}
+}
+
+
+/*
+type === LOGGED_IN ?
 	{ ...state, tokenObj, isLoggedIn: true } :
 		type === LOGGED_OUT ?
 		{ ...state, isLoggedIn: false }
 		: state
+*/

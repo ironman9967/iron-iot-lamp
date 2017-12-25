@@ -20,13 +20,17 @@ function pubState(state) {
 MQTT.sub(configTopic, function(conn, topic, msg) {
 	print('config update: ' + msg);
 	let config = JSON.parse(msg);
-	if (config.light.on) {
-		print('turning on light');
-		//TODO: turn on light
-	}
-	else {
-		print('turning off light');
-		//TODO: turn off light
+	if (config) {
+		if (config.light) {
+			if (config.light.on) {
+				print('turning on light');
+				//TODO: turn on light
+			}
+			else {
+				print('turning off light');
+				//TODO: turn off light
+			}
+		}
 	}
 	pubState(config);
 }, null);

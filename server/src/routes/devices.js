@@ -12,6 +12,7 @@ export const createRoutes = ({
 }) => ([{
 	method: 'GET',
 	path: '/api/devices',
+	config: { auth: 'default' },
 	handler: (req, h) => {
 		const res = h.response(JSON.stringify({
 			devices: [

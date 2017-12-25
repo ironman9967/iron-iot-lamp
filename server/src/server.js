@@ -8,6 +8,9 @@ import Inert from 'inert'
 import { createLogger } from './logger'
 const { logHandler, requestLoggerExt } = createLogger()
 
+import { createAuthStrategy } from './auth'
+const authStrategy = createAuthStrategy()
+
 import {
 	createAppRoutes,
 	createDevicesRoutes,
@@ -32,6 +35,9 @@ export async function provision() {
 	server.events.on('log', logHandler);
 
 	server.ext(requestLoggerExt({ log }))
+
+	server.auth.scheme('jwt', authStrategy)
+	server.auth.strategy('default', 'jwt')
 
 	createAppRoutes().forEach(addRoute)
 	createDevicesRoutes({ log }).forEach(addRoute)

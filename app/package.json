@@ -23,13 +23,12 @@
 		"redux-logger": "^3.0.6",
 		"redux-thunk": "^2.2.0"
 	},
+	"proxy": "http://localhost:8080",
 	"watch": {
 		"build": {
 			"patterns": [
 				"src"
-			],
-			"extenstions": "js,json",
-			"quiet": true
+			]
 		}
 	}
 }
