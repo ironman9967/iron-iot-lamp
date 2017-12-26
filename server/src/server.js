@@ -39,13 +39,6 @@ export async function provision() {
 	server.auth.scheme('jwt', authStrategy)
 	server.auth.strategy('default', 'jwt')
 
-	server.state('access_token', {
-	    ttl: 7 * 24 * 60 * 60 * 1000,
-	    isSecure: false,
-	    path: '/',
-	    encoding: 'base64json'
-	})
-
 	createAppRoutes().forEach(addRoute)
 	createDevicesRoutes({ log }).forEach(addRoute)
 	createLampRoutes({ log }).forEach(addRoute)
