@@ -5,9 +5,9 @@ import { ConnectedRouter } from 'react-router-redux'
 import { Route } from 'react-router'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
-import Home from '../../presentation/home'
-import Auth from '../../presentation/auth'
-import Devices from '../../containers/devices'
+import Home from '../home'
+import Auth from '../auth'
+import Devices from '../devices'
 
 export default ({ store, history }) => (
 	<MuiThemeProvider>

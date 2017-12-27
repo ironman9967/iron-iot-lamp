@@ -1,14 +1,11 @@
 
 import React from 'react'
-import { connect } from 'react-redux'
 
 import GoogleLogin from 'react-google-login'
 
 import AppBar from 'material-ui/AppBar'
+import Chip from 'material-ui/Chip'
 import RaisedButton from 'material-ui/RaisedButton'
-
-import { auth } from '../../actions'
-const { loggedIn, loggedOut }  = auth
 
 const styles = {
 	googleLogin: {
@@ -18,14 +15,19 @@ const styles = {
 		marginTop: 16,
 		marginLeft: 16,
 		marginBottom: 16
+	},
+	chip: {
+		margin: 12,
+	},
+	wrapper: {
+		display: 'flex',
+		flexWrap: 'wrap',
 	}
 }
 
-const Auth = ({
-	auth: {
-		clientId,
-		err
-	},
+const Login = ({
+	clientId,
+	ui,
 	loggedIn,
 	loggedOut
 }) => (
@@ -36,7 +38,12 @@ const Auth = ({
 			iconClassNameRight="muidocs-icon-navigation-expand-more"
 		/>
 		{
-			err ? err.message : null
+			ui ?
+				<div style={styles.wrapper}>
+					<Chip style={styles.chip} >
+						{ui.message}
+			        </Chip>
+				</div> : null
 		}
 		<GoogleLogin
 			tag="div"
@@ -55,15 +62,4 @@ const Auth = ({
 	</div>
 )
 
-const mapState = ({
-	auth
-}) => ({
-	auth
-})
-
-const mapDispatch = dispatch => ({
-	loggedIn: response => dispatch(loggedIn(response)),
-	loggedOut: err => dispatch(loggedOut(err))
-})
-
-export default connect(mapState, mapDispatch)(Auth)
+export default Login

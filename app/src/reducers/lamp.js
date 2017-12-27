@@ -1,6 +1,5 @@
 
-import { lamp } from '../actions'
-const { TURNED_ON } = lamp
+import { TURNED_ON } from '../actions/lamp'
 
 export default (state = {
 	light: {

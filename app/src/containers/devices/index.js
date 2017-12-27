@@ -2,87 +2,39 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import AppBar from 'material-ui/AppBar'
-import { List, ListItem } from 'material-ui/List'
-
 import { CheckAuth } from '../check-auth'
 
-import Lamp from '../../presentation/lamp'
+import DeviceList from '../../presentation/device-list'
 
-import { devices, auth } from '../../actions'
-const { setDeviceList }  = devices
-const { loggedOut } = auth
+import { loggedOut } from '../../actions/auth'
+import { loadDevices } from '../../actions/devices'
 
 class Devices extends Component {
 	componentDidMount() {
-		const headers = new Headers();
-		headers.append('authorization', `${this.props.token.type} ${this.props.token.jwt}`)
-		fetch('/api/devices', {
-			method: 'GET',
-			headers
-		})
-			.then(res => res.json()
-				.then(body => ({
-					res,
-					body
-				}))
-			)
-			.then(({ res: { status, statusText }, body }) => {
-				if (status === 200) {
-					this.props.setDeviceList(body)
-				}
-				else if (status === 400) {
-					this.props.loggedOut({
-						message: `Please login again`
-					})
-				}
-				else {
-					this.props.loggedOut({
-						status,
-						message: `Unable to get devices - ${statusText}`
-					})
-				}
-			})
+		this.props.loadDevices()
 	}
 
 	render() {
 		return (
-			<div>
-				<AppBar
-					title="iron iot"
-					showMenuIconButton={false}
-					iconClassNameRight="muidocs-icon-navigation-expand-more"
-				/>
-				<List>
-					{
-						this.props.devices.map(({
-							id
-						}) => (
-							<ListItem primaryText={id} rightToggle={
-								<Lamp />
-							} />
-						))
-					}
-				</List>
-			</div>
+			<DeviceList {
+				...{
+					loggedOut: this.props.loggedOut,
+					devices: this.props.devices
+				}
+			} />
 		)
 	}
 }
 
 const mapState = ({
-	devices,
-	auth: { googleAuth: { tokenObj: { token_type, id_token } } }
+	devices
 }) => ({
-	devices,
-	token: {
-		type: token_type,
-		jwt: id_token
-	}
+	devices
 })
 
 const mapDispatch = dispatch => ({
-	setDeviceList: devices => dispatch(setDeviceList(devices)),
-	loggedOut: err => dispatch(loggedOut(err))
+	loadDevices: () => dispatch(loadDevices()),
+	loggedOut: ui => dispatch(loggedOut(ui))
 })
 
 export default CheckAuth(connect(mapState, mapDispatch)(Devices))

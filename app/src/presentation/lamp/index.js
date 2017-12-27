@@ -3,11 +3,10 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Toggle from 'material-ui/Toggle'
 
-import { lamp } from '../../actions'
-const {
+import {
 	turnOn,
 	turnOff
-} = lamp
+} from '../../actions/lamp'
 
 const Lamp = ({
 	switchLight,
