@@ -1,9 +1,8 @@
 
-import lamp from './lamp'
+import device from './device'
 
 export default (state = [], {
 	type,
-	devices
-}) => devices
-	? devices.map(device => lamp(device, { type }))
-	: state
+	devices,
+	...action
+}) => (devices || state).map(d => device(d, { type, ...action }))

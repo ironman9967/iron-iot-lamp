@@ -14,10 +14,14 @@ const authStrategy = createAuthStrategy()
 import {
 	createAppRoutes,
 	createDevicesRoutes,
+	createDeviceRoutes,
 	createLampRoutes
 } from './routes'
 
 const port = process.env.npm_package_config_port
+const project = process.env.npm_package_config_gcpProject
+const registry = process.env.npm_package_config_gcpIotRegistry
+const region = process.env.npm_package_config_gcpIotRegion
 
 const app = path.resolve('../app/build')
 
@@ -40,8 +44,24 @@ export async function provision() {
 	server.auth.strategy('default', 'jwt')
 
 	createAppRoutes().forEach(addRoute)
-	createDevicesRoutes({ log }).forEach(addRoute)
-	createLampRoutes({ log }).forEach(addRoute)
+	createDevicesRoutes({
+		log,
+		registry,
+		region,
+		project
+	}).forEach(addRoute)
+	createDeviceRoutes({
+		log,
+		registry,
+		region,
+		project
+	}).forEach(addRoute)
+	createLampRoutes({
+		log,
+		registry,
+		region,
+		project
+	}).forEach(addRoute)
 
 	await server.start()
 

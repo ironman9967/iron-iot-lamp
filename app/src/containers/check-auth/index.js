@@ -15,10 +15,17 @@ export const CheckAuth = WrappedComponent => {
 		}
 
 		render() {
-			if (this.props.isLoggedIn || this.props.access_token) {
-				return <WrappedComponent />
+			const {
+				isLoggedIn,
+				access_token,
+				pathname,
+				loadAccessToken,
+				...wrappedComponentProps
+			} = this.props
+			if (isLoggedIn || access_token) {
+				return <WrappedComponent { ...wrappedComponentProps }/>
 			}
-			else if (this.props.pathname !== '/auth') {
+			else if (pathname !== '/auth') {
 				return <Redirect to="/auth" />
 			}
 			else {

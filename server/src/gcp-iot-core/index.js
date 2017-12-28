@@ -53,5 +53,24 @@ export const getDeviceState = ({
 ])).then(output => {
 	const base64State = output.match(/state:\s*binaryData: (.*)\n/)[1]
 	const json = Buffer.from(base64State, 'base64')
-	return JSON.parse(json)
+	return {
+		id: deviceId,
+		...JSON.parse(json)
+	}
 })
+
+export const getDevices = ({
+	registry,
+	region,
+	project
+}) => handleSpawn(spawn('gcloud', [
+	'beta',
+	'iot',
+	'devices',
+	'list',
+	`--project=${project}`,
+	`--registry=${registry}`,
+	`--region=${region}`
+])).then(output =>
+	output.match(/\n\S+\s+\S+/g)
+		.map(deviceLine => deviceLine.match(/(\S+)\s+\S+/)[1]))

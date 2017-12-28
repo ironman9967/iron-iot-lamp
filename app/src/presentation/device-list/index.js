@@ -3,12 +3,13 @@ import React from 'react'
 
 import AppBar from 'material-ui/AppBar'
 import FlatButton from 'material-ui/FlatButton'
-import { List, ListItem } from 'material-ui/List'
+import List from 'material-ui/List'
 
-import Lamp from '../lamp'
+import DeviceListItem from '../../presentation/device-list-item'
 
 const DeviceList = ({
 	devices,
+	nameDevice,
 	loggedOut
 }) => (
 	<div>
@@ -24,11 +25,12 @@ const DeviceList = ({
 		/>
 		<List>
 			{
-				devices.map(device => (
-					<ListItem primaryText={device.id} rightToggle={
-						<Lamp { ...device } />
-					} />
-				))
+				devices.map(device => <DeviceListItem { 
+					...{
+						...device,
+						nameDevice
+					}
+				}/>)
 			}
 		</List>
 	</div>
