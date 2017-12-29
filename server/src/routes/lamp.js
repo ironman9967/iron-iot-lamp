@@ -12,7 +12,7 @@ export const createRoutes = ({
 	project
 }) => ([{
 	method: 'GET',
-	path: '/api/devices/{deviceId}/light/switch/{onOrOff}',
+	path: '/api/devices/{deviceId}/light/{onOrOff}',
 	config: { auth: 'default' },
 	handler: ({ params: { deviceId, onOrOff } }, h) =>
 		switchLampLight({
@@ -22,5 +22,11 @@ export const createRoutes = ({
 			project,
 			deviceId,
 			onOrOff
-		}).then(() => h.response()).catch(err => handleError(err, h))
+		}).then(({
+			light: {
+				on
+			}
+		}) => h.response(JSON.stringify({
+			on
+		}))).catch(err => handleError(err, h))
 }])

@@ -5,11 +5,10 @@ import AppBar from 'material-ui/AppBar'
 import FlatButton from 'material-ui/FlatButton'
 import List from 'material-ui/List'
 
-import DeviceListItem from '../../presentation/device-list-item'
+import Device from '../../containers/device'
 
 const DeviceList = ({
 	devices,
-	nameDevice,
 	loggedOut
 }) => (
 	<div>
@@ -23,16 +22,10 @@ const DeviceList = ({
 				})
 			} />}
 		/>
-		<List>
-			{
-				devices.map(device => <DeviceListItem { 
-					...{
-						...device,
-						nameDevice
-					}
-				}/>)
-			}
-		</List>
+		<List>{ devices.map(device => <Device { ...{
+			presentation: 'list-item', //TODO: trying to make device a route!
+			...device
+		} }/>) }</List>
 	</div>
 )
 

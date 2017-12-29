@@ -2,77 +2,74 @@
 import React from 'react'
 
 import { ListItem } from 'material-ui/List'
-import Toggle from 'material-ui/Toggle'
 
 import WarningIcon from 'material-ui/svg-icons/alert/warning';
 import BuildIcon from 'material-ui/svg-icons/action/build';
 
-
-import TextField from 'material-ui/TextField'
-import FlatButton from 'material-ui/FlatButton'
-
+import DeviceName from '../device-name'
+import LampLightButton from '../lamp-light-button'
 
 const styles = {
 	pending: {
 		color: 'gray'
-	},
-	toggleButton: {
-		position: 'absolute',
-		display: 'block',
-		top: '0px',
-		right: '4px',
-		padding: '12px',
-		border: 'none',
-		background: 'none'
 	}
 }
 
-const Device = ({
+const DeviceListItem = ({
 	id,
 	type,
 	name,
 	nameDevice,
+	toggleLight,
 	...device
 }) => {
+	const li = {
+		key: id
+	}
 	if (!type) {
-		return <ListItem
-			style={styles.pending}
-			key={id}
-			primaryText={`Pending Device - ${id}`}
-			disabled={true}
-			rightIcon={<WarningIcon />}
-		/>
+		li.style = styles.pending
+		li.primaryText = `Pending Device - ${id}`
+		li.disabled = true
+		li.rightIcon = ( <WarningIcon /> )
 	}
-	if (!name) {
-		let name = ''
-		return <ListItem
-			key={id}
-			primaryText={`New Device - ${id}`}
-			rightIcon={<BuildIcon />}
-		>
-			<TextField hintText="Name this device" onChange={(e, newName) => {
-				name = newName
-			}}/>
-			<FlatButton label="words" onClick={
-				() => nameDevice({
+	else {
+		let display
+		if (name) {
+			display = name
+			switch (type) {
+				case 'lamp':
+					li.rightIconButton = (
+						<LampLightButton {
+							...{
+								style: {
+									top: void 0,
+									...li.style
+								},
+								id,
+								...device,
+								toggleLight
+							}
+						}/>
+					)
+					break;
+			}
+		}
+		else {
+			display = `New Device - ${id}`
+			li.rightIcon = ( <BuildIcon /> )
+		}
+		li.primaryText = (
+			<DeviceName {
+				...{
 					id,
-					name
-				})
-			} />
-		</ListItem>
+					name,
+					display,
+					nameDevice
+				}
+			}/>
+		)
 	}
-	switch (type) {
-		case 'lamp':
-			return <ListItem
-				key={id}
-				primaryText={name}
-				rightIconButton={<button style={styles.toggleButton}>
-					<Toggle
-						toggled={device.light.on}
-					/>
-				</button>}
-			/>
-	}
+	return <ListItem { ...li } />
 }
 
-export default Device
+export default DeviceListItem

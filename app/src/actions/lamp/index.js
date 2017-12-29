@@ -1,13 +1,20 @@
 
-export const TURNED_ON = 'LIGHT_TURNED_ON'
-export const TURNED_OFF = 'LIGHT_TURNED_OFF'
+import { callApi } from '../call-api'
 
-export const turnOn = ({ id }) => fetch(`/api/devices/${id}/light/switch/on`)
-	.then(() => ({
-		type: TURNED_ON
-	}))
+export const LIGHT_TOGGLED = 'LAMP_LIGHT_TOGGLED'
 
-export const turnOff = ({ id }) => fetch(`/api/devices/${id}/light/switch/off`)
-	.then(() => ({
-		type: TURNED_OFF
+export const toggleLight = ({
+	id
+}) => (dispatch, getState) => {
+	const {
+		light: {
+			on
+		}
+	} = getState().devices.find(d => d.id === id)
+	return dispatch(callApi({
+		url: `/api/devices/${id}/light/${on ? 'off' : 'on'}`,
+		successAction: {
+			type: LIGHT_TOGGLED
+		}
 	}))
+}

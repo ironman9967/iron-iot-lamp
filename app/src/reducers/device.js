@@ -7,7 +7,8 @@ export default (state = {
 	type: null
 }, {
 	type,
-	name
+	name,
+	...device
 }) => {
 	switch (type) {
 		case DEVICE_NAMED:
@@ -19,6 +20,6 @@ export default (state = {
 	}
 	switch (state.type) {
 		case 'lamp':
-			return lamp(state, { type })
+			return lamp(state, { type, name, ...device })
 	}
 }

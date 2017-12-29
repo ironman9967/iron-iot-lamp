@@ -1,28 +1,21 @@
 
-import { TURNED_ON, TURNED_OFF } from '../actions/lamp'
+import { LIGHT_TOGGLED } from '../actions/lamp'
 
 export default (state = {
 	light: {
 		on: false
 	}
 }, {
-	type
+	type,
+	...action
 }) => {
 	switch (type) {
-		case TURNED_ON:
+		case LIGHT_TOGGLED:
 			return {
 				...state,
 				light: {
 					...state.light,
-					on: true
-				}
-			}
-		case TURNED_OFF:
-			return {
-				...state,
-				light: {
-					...state.light,
-					on: false
+					on: action.on
 				}
 			}
 		default:

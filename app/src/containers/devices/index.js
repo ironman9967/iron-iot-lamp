@@ -8,7 +8,6 @@ import DeviceList from '../../presentation/device-list'
 
 import { loggedOut } from '../../actions/auth'
 import { loadDevices } from '../../actions/devices'
-import { nameDevice } from '../../actions/device'
 
 class Devices extends Component {
 	componentDidMount() {
@@ -17,13 +16,7 @@ class Devices extends Component {
 
 	render() {
 		return (
-			<DeviceList {
-				...{
-					nameDevice: this.props.nameDevice,
-					loggedOut: this.props.loggedOut,
-					devices: this.props.devices
-				}
-			} />
+			<DeviceList { ...this.props } />
 		)
 	}
 }
@@ -36,8 +29,7 @@ const mapState = ({
 
 const mapDispatch = dispatch => ({
 	loadDevices: () => dispatch(loadDevices()),
-	loggedOut: ui => dispatch(loggedOut(ui)),
-	nameDevice: deviceName => dispatch(nameDevice(deviceName))
+	loggedOut: ui => dispatch(loggedOut(ui))
 })
 
 export default CheckAuth(connect(mapState, mapDispatch)(Devices))
