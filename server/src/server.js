@@ -33,6 +33,8 @@ const server = new Hapi.Server({
 const addRoute = route => server.route(route)
 const log = (...args) => server.log.apply(server, args)
 
+const gcpIotCoreQueue = []
+
 export async function provision() {
 	await server.register(Inert)
 
@@ -46,12 +48,14 @@ export async function provision() {
 	createAppRoutes().forEach(addRoute)
 	createDevicesRoutes({
 		log,
+		gcpIotCoreQueue,
 		registry,
 		region,
 		project
 	}).forEach(addRoute)
 	createDeviceRoutes({
 		log,
+		gcpIotCoreQueue,
 		registry,
 		region,
 		project

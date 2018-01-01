@@ -13,10 +13,7 @@ export default (state = {
 		case LIGHT_TOGGLED:
 			return {
 				...state,
-				light: {
-					...state.light,
-					on: action.on
-				}
+				light: action.light
 			}
 		default:
 			return state

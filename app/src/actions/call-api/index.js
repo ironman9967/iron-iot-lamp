@@ -4,7 +4,8 @@ import { loggedOut } from '../auth'
 export const callApi = ({
 	url,
 	successAction: {
-		type
+		type,
+		resultName = 'result'
 	},
 	fetchOpts
 }) => (dispatch, getState) => {
@@ -29,10 +30,9 @@ export const callApi = ({
 		)
 		.then(({ res: { status, statusText }, body }) => {
 			if (status === 200) {
-				dispatch({
-					type,
-					...body
-				})
+				const action = { type }
+				action[resultName || 'result'] = body
+				dispatch(action)
 			}
 			else {
 				if (status === 400) {

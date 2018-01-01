@@ -8,35 +8,31 @@ import { loadAccessToken } from '../../actions/auth'
 
 export const CheckAuth = WrappedComponent => {
 	class CheckAuth extends Component {
-		componentDidMount() {
-			if (!this.props.access_token) {
+		componentWillMount() {
+			if (this.props.access_token === void 0) {
 				this.props.loadAccessToken()
 			}
 		}
 
 		render() {
 			const {
-				isLoggedIn,
 				access_token,
 				pathname,
 				loadAccessToken,
 				...wrappedComponentProps
 			} = this.props
-			if (isLoggedIn || access_token) {
+			if (access_token) {
 				return <WrappedComponent { ...wrappedComponentProps }/>
 			}
-			else if (pathname !== '/auth') {
+			if (access_token === null && pathname !== '/auth') {
 				return <Redirect to="/auth" />
 			}
-			else {
-				return null
-			}
+			return null
 		}
 	}
 
 	const mapState = ({
 		auth: {
-			isLoggedIn,
 			access_token
 		},
 		router: {
@@ -45,7 +41,6 @@ export const CheckAuth = WrappedComponent => {
 			}
 		}
 	}) => ({
-		isLoggedIn,
 		access_token,
 		pathname
 	})

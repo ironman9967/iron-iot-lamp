@@ -14,7 +14,8 @@ export const toggleLight = ({
 	return dispatch(callApi({
 		url: `/api/devices/${id}/light/${on ? 'off' : 'on'}`,
 		successAction: {
-			type: LIGHT_TOGGLED
+			type: LIGHT_TOGGLED,
+			resultName: 'light'
 		}
 	}))
 }

@@ -18,7 +18,7 @@ export default ({ store, history }) => (
 					<Route path="/" component={Home} />
 					<Route path="/auth" component={Auth} />
 					<Route path="/devices" component={Devices} />
-					<Route path="/device" component={Device} />
+					<Route path="/device/:id" component={Device} />
 				</div>
 	        </ConnectedRouter>
 	    </Provider>

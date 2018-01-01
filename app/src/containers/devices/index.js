@@ -1,7 +1,6 @@
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-
 import { CheckAuth } from '../check-auth'
 
 import DeviceList from '../../presentation/device-list'

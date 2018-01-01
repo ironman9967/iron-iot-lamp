@@ -8,10 +8,9 @@ import {
 } from '../actions/auth'
 
 export default (state = {
-	isLoggedIn: false,
 	ui: null,
 	googleOAuth: null,
-	access_token: null,
+	access_token: void 0,
 	clientId: clientId
 }, {
 	type,
@@ -22,7 +21,6 @@ export default (state = {
 		case LOGGED_IN:
 			return {
 				...state,
-				isLoggedIn: true,
 				ui,
 				googleOAuth: action.googleOAuth || state.googleOAuth,
 				access_token: action.access_token || state.access_token
@@ -30,7 +28,6 @@ export default (state = {
 		case LOGGED_OUT:
 			return {
 				...state,
-				isLoggedIn: false,
 				ui,
 				googleOAuth: null,
 				access_token: null
@@ -38,7 +35,7 @@ export default (state = {
 		case ACCESS_TOKEN_LOADED:
 			return {
 				...state,
-				access_token: action.access_token || state.access_token
+				access_token: action.access_token
 			}
 		default:
 			return state

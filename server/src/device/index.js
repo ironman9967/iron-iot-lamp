@@ -1,26 +1,35 @@
 
-import * as config from './config'
-import * as lamp from './lamp'
+import { createConfig } from './config'
+import { createLamp } from './lamp'
 
-const nameDevice = ({
-	log,
-	project,
-	registry,
-	region,
-	deviceId,
-	name
-}) => config.publishDeviceConfig({
-	log,
-	project,
-	registry,
-	region,
-	deviceId
-}, { name }, {
-	filter: ({ name }) => name
-})
+export const createDevice = ({
+	gcpIotCoreQueue
+}) => {
+	const config = createConfig({
+		gcpIotCoreQueue
+	})
+	const lamp = createLamp({
+		config
+	})
 
-export {
-	config,
-	lamp,
-	nameDevice
+	return {
+		config,
+		lamp,
+		nameDevice: ({
+			log,
+			project,
+			registry,
+			region,
+			deviceId,
+			name
+		}) => config.publishDeviceConfig({
+			log,
+			project,
+			registry,
+			region,
+			deviceId
+		}, { name }, {
+			filter: ({ name }) => name
+		})
+	}
 }

@@ -1,7 +1,8 @@
 
 import { callApi } from '../call-api'
 
-export const DEVICE_NAMED = 'DEVICE_NAMED'
+export const NAMED = 'DEVICE_NAMED'
+export const STATE_LOADED = 'DEVICE_STATE_LOADED'
 
 export const nameDevice = ({
 	id,
@@ -9,7 +10,8 @@ export const nameDevice = ({
 }) => dispatch => dispatch(callApi({
 	url: `/api/devices/${id}/name`,
 	successAction: {
-		type: DEVICE_NAMED
+		type: NAMED,
+		resultName: 'device'
 	},
 	fetchOpts: {
 		method: 'POST',
@@ -17,5 +19,13 @@ export const nameDevice = ({
 			'content-type': 'application/json'
 		},
 		body: JSON.stringify(name)
+	}
+}))
+
+export const getDeviceState = id => dispatch => dispatch(callApi({
+	url: `/api/devices/${id}/state`,
+	successAction: {
+		type: STATE_LOADED,
+		resultName: 'device'
 	}
 }))

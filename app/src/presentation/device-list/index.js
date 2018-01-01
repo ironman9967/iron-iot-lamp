@@ -1,32 +1,40 @@
 
 import React from 'react'
 
+import muiThemeable from 'material-ui/styles/muiThemeable';
+
 import AppBar from 'material-ui/AppBar'
+import LinearProgress from 'material-ui/LinearProgress'
 import FlatButton from 'material-ui/FlatButton'
 import List from 'material-ui/List'
 
-import Device from '../../containers/device'
+import DeviceListItem from '../device-list-item'
 
 const DeviceList = ({
 	devices,
-	loggedOut
+	...props
 }) => (
 	<div>
 		<AppBar
 			title="iron iot"
 			showMenuIconButton={false}
-			iconClassNameRight="muidocs-icon-navigation-expand-more"
 			iconElementRight={<FlatButton label="logout" onClick={
-				() => loggedOut({
+				() => props.loggedOut({
 					message: 'Logged out successfully'
 				})
 			} />}
 		/>
-		<List>{ devices.map(device => <Device { ...{
-			presentation: 'list-item', //TODO: trying to make device a route!
-			...device
-		} }/>) }</List>
+		{
+			devices.length === 0
+				? <LinearProgress
+					mode="indeterminate"
+					color={props.muiTheme.palette.accent1Color}
+				/>
+				: <List>{ devices.map(device =>
+					<DeviceListItem { ...{ ...device, ...props } } />
+				)}</List>
+		}
 	</div>
 )
 
-export default DeviceList
+export default muiThemeable()(DeviceList)
