@@ -9,8 +9,8 @@ import { CheckAuth } from '../check-auth'
 const Home = ({
 	pathname
 }) => {
-	if (pathname === '/' || pathname === '/auth') {
-		pathname = '/devices'
+	if (pathname === '/' || pathname === '/app/auth') {
+		pathname = '/app/devices'
 	}
 	return (
 		<Redirect to={pathname} />

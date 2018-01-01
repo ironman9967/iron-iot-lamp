@@ -3,17 +3,31 @@ import { LIGHT_TOGGLED } from '../actions/lamp'
 
 export default (state = {
 	light: {
-		on: false
+		on: false,
+		led: {
+			model: 'neopixel strip',
+			type: 'RGBW',
+			count: 60,
+			array: []
+		},
+		animation: {
+			current: null,
+			available: []
+		}
 	}
-}, {
-	type,
-	...action
-}) => {
-	switch (type) {
+}, action = {}) => {
+	switch (action.type) {
 		case LIGHT_TOGGLED:
 			return {
 				...state,
-				light: action.light
+				meta: {
+					...state.meta,
+					updatedAt: action.device.meta.updatedAt
+				},
+				light: {
+					...state.light,
+					on: action.device.light.on
+				}
 			}
 		default:
 			return state

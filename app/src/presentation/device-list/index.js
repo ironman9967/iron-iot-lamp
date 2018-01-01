@@ -17,6 +17,8 @@ const DeviceList = ({
 	<div>
 		<AppBar
 			title="iron iot"
+			titleStyle={{cursor: 'pointer'}}
+			onTitleClick={() => props.history.push('/app/devices')}
 			showMenuIconButton={false}
 			iconElementRight={<FlatButton label="logout" onClick={
 				() => props.loggedOut({

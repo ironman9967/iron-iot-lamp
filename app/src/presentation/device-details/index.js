@@ -1,5 +1,5 @@
 
-import React from 'react'
+import React, { Component } from 'react'
 import moment from 'moment'
 
 import muiThemeable from 'material-ui/styles/muiThemeable';
@@ -16,6 +16,9 @@ import DeviceName from '../device-name'
 import LampLightButton from '../lamp-light-button'
 
 const styles = {
+	appBarTitle: {
+		cursor: 'pointer'
+	},
 	paper: {
 		margin: '10px'
 	},
@@ -43,61 +46,101 @@ const styles = {
 	}
 }
 
-const DeviceDetails = ({
-	muiTheme,
-	history: { push },
-	loggedOut,
-	...device
-}) => {
-	const deviceSpecific = () => {
-		switch (device.type) {
-			case 'lamp':
-				return (
-					<div style={styles.lamp.container}>
-						<div style={styles.lamp.label}>Light</div>
-						<div style={styles.lamp.buttonContainer}>
-							<LampLightButton {...device} />
-						</div>
-					</div>
-				)
-			default:
-				return ( <div>unknown device type</div> )
+class DeviceDetails extends Component {
+	constructor(props) {
+		super(props)
+		this.delay = 500
+		this.state = {
+			lastUpdated: '...'
 		}
 	}
 
-	return (
-		<div>
-			<AppBar
-				title="iron iot"
-				iconElementLeft={
-					<IconButton onClick={() => push('/devices')}>
-						<NavigationArrowBack />
-					</IconButton>
-				}
-				iconElementRight={
-					<FlatButton label="logout" onClick={
-						() => loggedOut({
-							message: 'Logged out successfully'
-						})
-					} />
-				}
-			/>
-			{
-				device.id
-					? <Paper style={styles.paper} zDepth={1}>
-						<DeviceName style={styles.deviceName} {...device} />
-						<div style={styles.lastUpdated}>
-							Last updated {moment(device.meta.updatedAt).fromNow()}
+	delayUpdate() {
+		this.displayUpdater =
+			setTimeout(() => this.updateLastUpdated(), this.delay)
+	}
+
+	updateLastUpdated() {
+		const state = {}
+		if (this.props.meta && this.props.meta.updatedAt !== void 0) {
+			state.lastUpdated = moment(this.props.meta.updatedAt).fromNow()
+			this.delay = 10000
+		}
+		else {
+			state.lastUpdated = '...'
+		}
+		this.setState(state)
+		this.delayUpdate()
+	}
+
+	componentDidMount() {
+		this.delayUpdate()
+	}
+
+	componentWillUnmount() {
+		clearInterval(this.displayUpdater)
+	}
+
+	render() {
+		const {
+			muiTheme,
+			history: { push },
+			loggedOut,
+			...device
+		} = this.props
+
+		const deviceSpecific = () => {
+			switch (device.type) {
+				case 'lamp':
+					return (
+						<div style={styles.lamp.container}>
+							<div style={styles.lamp.label}>Light</div>
+							<div style={styles.lamp.buttonContainer}>
+								<LampLightButton {...device} />
+							</div>
 						</div>
-						{ deviceSpecific() }
-					</Paper>
-					: <LinearProgress
-						mode="indeterminate"
-						color={muiTheme.palette.accent1Color}
-					/>
+					)
+				default:
+					return ( <div>unknown device type</div> )
 			}
-		</div>
-	)
+		}
+
+		return (
+			<div>
+				<AppBar
+					title="iron iot"
+					titleStyle={styles.appBarTitle}
+					onTitleClick={() => push('/app/devices')}
+					iconElementLeft={
+						<IconButton onClick={() => push('/app/devices')}>
+							<NavigationArrowBack />
+						</IconButton>
+					}
+					iconElementRight={
+						<FlatButton label="logout" onClick={
+							() => loggedOut({
+								message: 'Logged out successfully'
+							})
+						} />
+					}
+				/>
+				{
+					device.id
+						? <Paper style={styles.paper} zDepth={1}>
+							<DeviceName style={styles.deviceName} {...device} />
+							<div style={styles.lastUpdated}>
+								Last updated {this.state.lastUpdated}
+							</div>
+							{ deviceSpecific() }
+						</Paper>
+						: <LinearProgress
+							mode="indeterminate"
+							color={muiTheme.palette.accent1Color}
+						/>
+				}
+			</div>
+		)
+	}
 }
 
 export default muiThemeable()(DeviceDetails)

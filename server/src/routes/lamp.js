@@ -26,12 +26,8 @@ export const createRoutes = ({
 				project,
 				deviceId,
 				onOrOff
-			}).then(({
-				light: {
-					on
-				}
-			}) => h.response(JSON.stringify({
-				on
-			}))).catch(err => handleError(err, h))
+			})
+			.then(state => h.response(JSON.stringify(state)))
+			.catch(err => handleError(err, h))
 	}]
 }

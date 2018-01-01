@@ -29,10 +29,16 @@ class DeviceName extends Component {
 		}
 	}
 	render() {
+		const elementId = `DeviceName-${this.props.id}`
 		return <TextField
+			id={elementId}
 			style={this.props.style}
 			floatingLabelText="Device Name"
 			defaultValue={this.props.display}
+			onKeyUp={({ key }) => key === 'Enter' || key === 'Tab'
+				? document.getElementById(elementId).blur()
+				: null
+			}
 			onChange={(e, name) => this.inputWatcher.next(name)}
 		/>
 	}

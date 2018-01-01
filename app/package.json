@@ -11,6 +11,7 @@
 	},
 	"dependencies": {
 		"history": "^4.7.2",
+		"lodash": "^4.17.4",
 		"material-ui": "^0.20.0",
 		"moment": "^2.20.1",
 		"npm-watch": "^0.3.0",

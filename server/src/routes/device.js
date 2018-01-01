@@ -33,7 +33,8 @@ export const createRoutes = ({
 				project,
 				deviceId,
 				name
-			}).then(() => h.response(JSON.stringify({ id: deviceId, name })))
+			})
+			.then(state => h.response(JSON.stringify(state)))
 			.catch(err => handleError(err, h))
 	}, {
 		method: 'GET',
@@ -44,7 +45,8 @@ export const createRoutes = ({
 				registry,
 				region,
 				deviceId
-			}).then(state => h.response(JSON.stringify(state)))
+			})
+			.then(state => h.response(JSON.stringify(state)))
 			.catch(err => handleError(err, h))
 	}]
 }

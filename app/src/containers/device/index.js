@@ -13,7 +13,7 @@ import DeviceDetails from '../../presentation/device-details'
 class Device extends Component {
 	getIdFromRoute() {
 		const route = this.props.location.pathname.split('/')
-		const [,, id] = route
+		const [,,, id] = route
 		return id
 	}
 

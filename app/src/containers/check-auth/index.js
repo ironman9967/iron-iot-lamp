@@ -25,7 +25,7 @@ export const CheckAuth = WrappedComponent => {
 				return <WrappedComponent { ...wrappedComponentProps }/>
 			}
 			if (access_token === null && pathname !== '/auth') {
-				return <Redirect to="/auth" />
+				return <Redirect to="/app/auth" />
 			}
 			return null
 		}

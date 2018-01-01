@@ -3,17 +3,26 @@ import React from 'react'
 
 import IconButton from 'material-ui/IconButton'
 
+import CircularProgress from 'material-ui/CircularProgress'
 import LightBulbIcon from 'material-ui/svg-icons/action/lightbulb-outline'
 
+const styles = {
+	button: {
+
+	},
+	spinner: {
+		marginRight: '10px'
+	}
+}
+
 const LampLightButton = ({
-	style,
 	id,
+	updating,
 	light,
 	toggleLight
-}) => {
-	return (
+}) => !updating
+	? (
 		<IconButton
-			style={style}
 			onClick={() => toggleLight({ id })}
 			tooltip={
 				`turn lamp ${light.on ? 'off' : 'on '}`
@@ -28,6 +37,8 @@ const LampLightButton = ({
 			<LightBulbIcon />
 		</IconButton>
 	)
-}
+	: (
+		<CircularProgress style={styles.spinner} />
+	)
 
 export default LampLightButton

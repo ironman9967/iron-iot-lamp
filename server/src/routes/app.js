@@ -9,4 +9,8 @@ export const createRoutes = () => ([{
 			index: true,
 		}
 	}
+}, {
+	method: 'GET',
+	path: '/app/{route*}',
+	handler: (req, h) => h.redirect('/')
 }])

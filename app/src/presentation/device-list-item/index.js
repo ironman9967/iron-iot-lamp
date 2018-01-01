@@ -26,7 +26,7 @@ const DeviceListItem = ({
 	} = device
 	const li = {
 		key: id,
-		onClick: () => push(`/device/${id}`)
+		onClick: () => push(`/app/device/${id}`)
 	}
 	if (!type) {
 		li.style = styles.pending

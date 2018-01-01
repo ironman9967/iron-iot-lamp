@@ -16,9 +16,10 @@ export default ({ store, history }) => (
 	        <ConnectedRouter history={history}>
 				<div>
 					<Route path="/" component={Home} />
-					<Route path="/auth" component={Auth} />
-					<Route path="/devices" component={Devices} />
-					<Route path="/device/:id" component={Device} />
+					<Route path="/app" component={Home} />
+					<Route path="/app/auth" component={Auth} />
+					<Route path="/app/devices" component={Devices} />
+					<Route path="/app/device/:id" component={Device} />
 				</div>
 	        </ConnectedRouter>
 	    </Provider>

@@ -3,6 +3,12 @@ import { callApi } from '../call-api'
 
 export const NAMED = 'DEVICE_NAMED'
 export const STATE_LOADED = 'DEVICE_STATE_LOADED'
+export const UPDATING = 'DEVICE_UPDATING'
+
+export const updating = u => dispatch => dispatch({
+	type: UPDATING,
+	updating: u
+})
 
 export const nameDevice = ({
 	id,
