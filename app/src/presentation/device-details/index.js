@@ -96,8 +96,14 @@ class DeviceDetails extends Component {
 		this.delayUpdate()
 	}
 
+	componentWillReceiveProps() {
+		clearTimeout(this.displayUpdater)
+		this.delay = 500
+		this.updateLastUpdated()
+	}
+
 	componentWillUnmount() {
-		clearInterval(this.displayUpdater)
+		clearTimeout(this.displayUpdater)
 	}
 
 	render() {
