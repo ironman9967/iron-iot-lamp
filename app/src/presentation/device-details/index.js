@@ -10,6 +10,7 @@ import IconButton from 'material-ui/IconButton'
 import NavigationArrowBack from 'material-ui/svg-icons/navigation/arrow-back'
 import FlatButton from 'material-ui/FlatButton'
 import Paper from 'material-ui/Paper'
+import Chip from 'material-ui/Chip'
 
 import DeviceName from '../device-name'
 
@@ -22,26 +23,44 @@ const styles = {
 	paper: {
 		margin: '10px'
 	},
+	deviceHeader: {
+		paddingTop: '10px',
+		paddingLeft: '10px',
+		fontSize: '30px'
+	},
 	deviceName: {
 		paddingLeft: '10px'
 	},
 	lastUpdated: {
+		paddingTop: '10px',
 		paddingLeft: '10px',
 		paddingBottom: '10px',
 		fontSize: '12px'
 	},
 	lamp: {
-		container: {
-			height: '48px'
+		header: {
+			display: 'flex',
+			flexWrap: 'wrap',
+			paddingTop: '10px',
+			paddingLeft: '10px'
 		},
-		label: {
-			display: 'inline-block',
-			paddingLeft: '10px',
-			paddingTop: '14px'
+		chips: {
+			margin: '4px',
+			fontSize: '12px'
 		},
-		buttonContainer: {
-			display: 'inline-block',
-			float: 'right'
+		toggle: {
+			container: {
+				height: '48px'
+			},
+			label: {
+				display: 'inline-block',
+				paddingLeft: '10px',
+				paddingTop: '14px'
+			},
+			buttonContainer: {
+				display: 'inline-block',
+				float: 'right'
+			}
 		}
 	}
 }
@@ -89,13 +108,31 @@ class DeviceDetails extends Component {
 			...device
 		} = this.props
 
-		const deviceSpecific = () => {
+		const deviceSpecificHeader = () => {
 			switch (device.type) {
 				case 'lamp':
 					return (
-						<div style={styles.lamp.container}>
-							<div style={styles.lamp.label}>Light</div>
-							<div style={styles.lamp.buttonContainer}>
+						<div style={styles.lamp.header}>
+							<Chip style={styles.lamp.chips}>
+								{device.light.led.model}
+							</Chip>
+							<Chip style={styles.lamp.chips}>
+								{device.light.led.type}
+							</Chip>
+						</div>
+					)
+				default:
+					return ( <div>unknown device type</div> )
+			}
+		}
+
+		const deviceSpecificControls = () => {
+			switch (device.type) {
+				case 'lamp':
+					return (
+						<div style={styles.lamp.toggle.container}>
+							<div style={styles.lamp.toggle.label}>Light</div>
+							<div style={styles.lamp.toggle.buttonContainer}>
 								<LampLightButton {...device} />
 							</div>
 						</div>
@@ -127,11 +164,17 @@ class DeviceDetails extends Component {
 				{
 					device.id
 						? <Paper style={styles.paper} zDepth={1}>
+							<div>
+								<div style={styles.deviceHeader}>
+									{ device.type }
+								</div>
+								{ deviceSpecificHeader() }
+							</div>
 							<DeviceName style={styles.deviceName} {...device} />
 							<div style={styles.lastUpdated}>
 								Last updated {this.state.lastUpdated}
 							</div>
-							{ deviceSpecific() }
+							{ deviceSpecificControls() }
 						</Paper>
 						: <LinearProgress
 							mode="indeterminate"
