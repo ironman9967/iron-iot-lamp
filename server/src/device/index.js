@@ -28,7 +28,9 @@ export const createDevice = ({
 			registry,
 			region,
 			deviceId
-		}, { name }, {
+		}, {
+			name
+		}, {
 			filter: ({ name }) => name
 		})
 	}

@@ -68,7 +68,6 @@ const styles = {
 class DeviceDetails extends Component {
 	constructor(props) {
 		super(props)
-		this.delay = 500
 		this.state = {
 			lastUpdated: '...'
 		}
@@ -76,14 +75,13 @@ class DeviceDetails extends Component {
 
 	delayUpdate() {
 		this.displayUpdater =
-			setTimeout(() => this.updateLastUpdated(), this.delay)
+			setTimeout(() => this.updateLastUpdated(), 500)
 	}
 
 	updateLastUpdated() {
 		const state = {}
 		if (this.props.meta && this.props.meta.updatedAt !== void 0) {
 			state.lastUpdated = moment(this.props.meta.updatedAt).fromNow()
-			this.delay = 10000
 		}
 		else {
 			state.lastUpdated = '...'
@@ -94,12 +92,6 @@ class DeviceDetails extends Component {
 
 	componentDidMount() {
 		this.delayUpdate()
-	}
-
-	componentWillReceiveProps() {
-		clearTimeout(this.displayUpdater)
-		this.delay = 500
-		this.updateLastUpdated()
 	}
 
 	componentWillUnmount() {
