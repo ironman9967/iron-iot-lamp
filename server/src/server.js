@@ -18,12 +18,12 @@ import {
 	createLampRoutes
 } from './routes'
 
-const port = process.env.npm_package_config_port
-const project = process.env.npm_package_config_gcpProject
-const registry = process.env.npm_package_config_gcpIotRegistry
-const region = process.env.npm_package_config_gcpIotRegion
+const port = process.env.PORT
+const project = process.env.GCP_PROJECT
+const region = process.env.GCP_REGION
+const registry = process.env.GCP_IOT_REGISTRY
 
-const app = path.resolve('../app/build')
+const app = path.resolve('./client/build')
 
 const server = new Hapi.Server({
 	port,

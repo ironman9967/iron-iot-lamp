@@ -11,6 +11,7 @@ export const createRoutes = ({
 	project
 }) => {
 	const device = createDevice({
+		log,
 		gcpIotCoreQueue
 	})
 	const { switchLampLight } = device.lamp

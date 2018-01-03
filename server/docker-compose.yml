@@ -1,0 +1,10 @@
+
+version: '2'
+
+services:
+  iron-iot-lamp:
+    image: iron-iot-lamp
+    env_file: .env
+    build: .
+    ports:
+      - "8080:8080"

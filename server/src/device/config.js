@@ -7,6 +7,7 @@ import 'rxjs/add/operator/filter';
 import { createGcpIotCore } from '../gcp-iot-core'
 
 export const createConfig = ({
+	log,
 	gcpIotCoreQueue = []
 }) => {
 	const {
@@ -19,7 +20,6 @@ export const createConfig = ({
 	return {
 		getDeviceState,
 		publishDeviceConfig: ({
-			log,
 			project,
 			registry,
 			region,
@@ -41,7 +41,7 @@ export const createConfig = ({
 				timedout = true
 			}, timeout)
 
-			getDeviceState({ registry, region, deviceId })
+			getDeviceState({ project, registry, region, deviceId })
 				.then(currentState => {
 					log(['debug'], `current state - ${JSON.stringify(currentState)}`)
 					return pubDeviceConfig({
@@ -63,13 +63,13 @@ export const createConfig = ({
 							deviceStateUpdate.complete()
 							return
 						}
-						getDeviceState({ registry, region, deviceId })
+						getDeviceState({ project, registry, region, deviceId })
 							.then(currentState => {
 								log(['debug'], `current state - ${JSON.stringify(currentState)}`)
 								deviceStateUpdate.next(currentState)
 								monitor(delay)
 							})
-					})
+					}, delay)
 
 					deviceStateUpdate.filter(filter).subscribe(deviceState => {
 						timedout = false

@@ -16,6 +16,7 @@ export const createRoutes = ({
 		},
 		nameDevice
 	} = createDevice({
+		log,
 		gcpIotCoreQueue
 	})
 	return [{
@@ -42,6 +43,7 @@ export const createRoutes = ({
 		config: { auth: 'default' },
 		handler: ({ params: { deviceId } }, h) =>
 			getDeviceState({
+				project,
 				registry,
 				region,
 				deviceId

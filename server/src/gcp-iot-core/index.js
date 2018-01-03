@@ -2,9 +2,8 @@
 import { spawn } from 'child_process'
 import path from 'path'
 
-import pubsub from '@google-cloud/pubsub'
-
 export const createGcpIotCore = ({
+	log,
 	queue = []
 }) => {
 	let working = false
@@ -35,6 +34,9 @@ export const createGcpIotCore = ({
 	}
 
 	const doSpawn = ({ proc, resolve, reject }) => {
+
+console.log('doSpawn')
+
 		working = true
 		const trimLastChar = s => {
 			s = s.toString()
@@ -43,10 +45,16 @@ export const createGcpIotCore = ({
 		let output = ''
 		proc.stdout.on('data', data => output += trimLastChar(data))
 		proc.stderr.on('data', data => output += trimLastChar(data))
+		proc.once('error', err => {
+			reject({
+				error: output,
+				...err
+			})
+		})
 		proc.once('close', code => {
-			code === 0 ?
-			resolve(output) :
-			reject({ code, error: output })
+			code === 0
+				? resolve(output)
+				: reject({ code, error: output })
 			checkForWork()
 		})
 	}
@@ -72,6 +80,7 @@ export const createGcpIotCore = ({
 		])),
 
 		getDeviceState: ({
+			project,
 			registry,
 			region,
 			deviceId
@@ -81,6 +90,7 @@ export const createGcpIotCore = ({
 			'devices',
 			'describe',
 			deviceId,
+			`--project=${project}`,
 			`--registry=${registry}`,
 			`--region=${region}`
 		])).then(output => {

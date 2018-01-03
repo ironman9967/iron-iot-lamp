@@ -12,6 +12,7 @@ export const createRoutes = ({
 		getDevices,
 		getDeviceState
 	} = createGcpIotCore({
+		log,
 		queue: gcpIotCoreQueue
 	})
 	return [{
@@ -19,10 +20,11 @@ export const createRoutes = ({
 		path: '/api/devices',
 		config: { auth: 'default' },
 		handler: (req, h) => getDevices({
+			project,
 			registry,
-			region,
-			project
+			region
 		}).then(deviceIds => Promise.all(deviceIds.map(deviceId => getDeviceState({
+			project,
 			registry,
 			region,
 			deviceId

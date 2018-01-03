@@ -5,4 +5,8 @@ node_modules/
 
 dist/
 
+.env
+
+iron-iot-lamp.*.json
+
 src/google-oauth-secret.*.json
