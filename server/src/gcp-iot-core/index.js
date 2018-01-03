@@ -34,9 +34,6 @@ export const createGcpIotCore = ({
 	}
 
 	const doSpawn = ({ proc, resolve, reject }) => {
-
-console.log('doSpawn')
-
 		working = true
 		const trimLastChar = s => {
 			s = s.toString()
