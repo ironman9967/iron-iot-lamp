@@ -13,6 +13,7 @@ const authStrategy = createAuthStrategy()
 
 import {
 	createAppRoutes,
+	createHealthCheckRoutes,
 	createDevicesRoutes,
 	createDeviceRoutes,
 	createLampRoutes
@@ -46,6 +47,7 @@ export async function provision() {
 	server.auth.strategy('default', 'jwt')
 
 	createAppRoutes().forEach(addRoute)
+	createHealthCheckRoutes().forEach(addRoute)
 	createDevicesRoutes({
 		log,
 		gcpIotCoreQueue,
@@ -68,6 +70,11 @@ export async function provision() {
 	}).forEach(addRoute)
 
 	await server.start()
+
+	process.once('SIGTERM', () => {
+		server.log(['debug'], 'server shutting down')
+		server.stop()
+	})
 
 	server.log(['debug'], `serving app from ${app}`)
 	server.log(['info'], `server up on ${port}`)
