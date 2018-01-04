@@ -1,6 +1,6 @@
 #!/bin/sh
 
-tar -xvzf google-cloud-sdk.tar.gz
+tar -xzf google-cloud-sdk.tar.gz
 
 rm -rf google-cloud-sdk.tar.gz
 
@@ -17,4 +17,4 @@ gcloud info --run-diagnostics -q
 gcloud auth activate-service-account \
 	${GCP_SRV_ACCT} \
 	-q \
-	--key-file=./${GCP_SRV_ACCT_KEY_FILE}
+	--key-file=${GCP_SRV_ACCT_KEY_FILE}

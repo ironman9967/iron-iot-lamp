@@ -9,7 +9,6 @@ import { createLogger } from './logger'
 const { logHandler, requestLoggerExt } = createLogger()
 
 import { createAuthStrategy } from './auth'
-const authStrategy = createAuthStrategy()
 
 import {
 	createAppRoutes,
@@ -33,6 +32,8 @@ const server = new Hapi.Server({
 
 const addRoute = route => server.route(route)
 const log = (...args) => server.log.apply(server, args)
+
+const authStrategy = createAuthStrategy({ log })
 
 const gcpIotCoreQueue = []
 

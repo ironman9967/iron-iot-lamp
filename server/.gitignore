@@ -5,7 +5,8 @@ node_modules/
 
 dist/
 
-.env
+app.yaml
+start-local.sh
 
 iron-iot-lamp.*.json
 
