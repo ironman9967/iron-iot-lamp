@@ -1,6 +1,5 @@
 
 import jwt from 'jwt-simple'
-import secret from '../google-oauth-secret.iron-iot.json'
 
 export const createAuthStrategy = ({ log, oauthSecret }) => () => ({
 	authenticate: async ({ state, headers: { authorization }}, h) => {
@@ -24,7 +23,10 @@ export const createAuthStrategy = ({ log, oauthSecret }) => () => ({
 			return res
 		}
 		if (credentials.email) {
-			log(['auth','debug'], JSON.stringify(credentials))
+			log(['auth','debug'], JSON.stringify({
+				name: credentials.name,
+				email: credentials.email
+			}))
 		}
 		return h.authenticated({ credentials })
 	}

@@ -14,6 +14,8 @@ import reducers from './reducers'
 
 import App from './containers/app'
 
+console.log(process.env)
+
 const history = createHistory()
 const router = routerMiddleware(history)
 const logger = createLogger()

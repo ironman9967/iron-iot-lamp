@@ -1,6 +1,4 @@
 
-import clientId from '../google-oauth-clientId.iron-iot.json'
-
 import {
 	LOGGED_IN,
 	LOGGED_OUT,
@@ -11,7 +9,7 @@ export default (state = {
 	ui: null,
 	googleOAuth: null,
 	access_token: void 0,
-	clientId: clientId
+	clientId: process.env.REACT_APP_GCP_OAUTH_CLIENT_ID
 }, {
 	type,
 	ui,
