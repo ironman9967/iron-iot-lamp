@@ -16,7 +16,7 @@
 		"start-docker": "npm run docker-prep && docker logs server_iron-iot-lamp_1 -f",
 		"start": "npm run build && node dist/index.js",
 		"deploy": "gcloud app deploy -q",
-		"deploy-tail-logs": "npm run deploy && gcloud app logs tail -f"
+		"deploy-tail-logs": "npm run deploy && gcloud app logs tail -s default"
 	},
 	"repository": {
 		"type": "git",
