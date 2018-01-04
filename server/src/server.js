@@ -47,34 +47,25 @@ export async function provision() {
 	server.auth.scheme('jwt', authStrategy)
 	server.auth.strategy('default', 'jwt')
 
+	const gcpRoutes = {
+		log,
+		region,
+		project,
+		registry,
+		gcpIotCoreQueue
+	}
+
 	createAppRoutes().forEach(addRoute)
 	createHealthCheckRoutes().forEach(addRoute)
-	createDevicesRoutes({
-		log,
-		gcpIotCoreQueue,
-		registry,
-		region,
-		project
-	}).forEach(addRoute)
-	createDeviceRoutes({
-		log,
-		gcpIotCoreQueue,
-		registry,
-		region,
-		project
-	}).forEach(addRoute)
-	createLampRoutes({
-		log,
-		registry,
-		region,
-		project
-	}).forEach(addRoute)
+	createDevicesRoutes(gcpRoutes).forEach(addRoute)
+	createDeviceRoutes(gcpRoutes).forEach(addRoute)
+	createLampRoutes(gcpRoutes).forEach(addRoute)
 
 	await server.start()
 
-	process.once('SIGTERM', () => {
+	process.once('SIGTERM', async () => {
 		server.log(['debug'], 'server shutting down')
-		server.stop()
+		await server.stop()
 	})
 
 	server.log(['debug'], `serving app from ${app}`)
