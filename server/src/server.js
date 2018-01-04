@@ -21,6 +21,7 @@ import {
 const port = process.env.PORT
 const project = process.env.GCP_PROJECT
 const region = process.env.GCP_REGION
+const oauthSecret = process.env.GCP_OAUTH_SECRET
 const registry = process.env.GCP_IOT_REGISTRY
 
 const app = path.resolve('./client/build')
@@ -33,7 +34,10 @@ const server = new Hapi.Server({
 const addRoute = route => server.route(route)
 const log = (...args) => server.log.apply(server, args)
 
-const authStrategy = createAuthStrategy({ log })
+const authStrategy = createAuthStrategy({
+	log,
+	oauthSecret
+})
 
 const gcpIotCoreQueue = []
 

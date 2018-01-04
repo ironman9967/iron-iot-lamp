@@ -6,7 +6,7 @@
 	"scripts": {
 		"watch": "npm-watch",
 		"build-server": "rm -rf dist && babel src --ignore node_modules --copy-files --out-dir dist",
-		"copy-client": "mkdir dist/client && cp -R client/build/ dist/client/build",
+		"copy-client": "rm -rf dist/client && mkdir dist/client && cp -R client/build/ dist/client/build",
 		"build-client": "cd client && npm i && npm run build && cd .. && npm run copy-client",
 		"build": "npm run build-server && npm run build-client",
 		"docker-build": "docker-compose build --force-rm",

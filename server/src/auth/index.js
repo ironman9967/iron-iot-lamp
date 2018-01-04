@@ -2,12 +2,12 @@
 import jwt from 'jwt-simple'
 import secret from '../google-oauth-secret.iron-iot.json'
 
-export const createAuthStrategy = ({ log }) => () => ({
+export const createAuthStrategy = ({ log, oauthSecret }) => () => ({
 	authenticate: async ({ state, headers: { authorization }}, h) => {
 		const token = authorization.substring(7)
 		let credentials = {}
 		try {
-			credentials = jwt.decode(token, secret, 'RS256')
+			credentials = jwt.decode(token, oauthSecret, 'RS256')
 		}
 		catch (err) {
 			h.unauthenticated(err.message, { credentials })
