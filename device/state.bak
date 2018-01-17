@@ -1,0 +1,1 @@
+{"type":"lamp","meta":{"updatedAt":1515095403744},"light":{"animation":{"available":[],"current":null},"led":{"array":[],"count":60,"type":"RGBW","model":"neopixel strip"},"on":true},"name":"living room neopixel lamp2","id":"esp32_1A25C0"}
