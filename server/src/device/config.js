@@ -26,7 +26,7 @@ export const createConfig = ({
 			deviceId
 		}, newConfig, {
 			filter,
-			timeout = 10000,
+			timeout = 30000,
 			delay = 250
 		}) => new Promise((resolve, reject) => {
 			const deviceStateUpdate = new Subject()

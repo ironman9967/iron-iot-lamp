@@ -1,5 +1,6 @@
 
 import jwt from 'jwt-simple'
+import obscureEmail from 'obscure-email'
 
 export const createAuthStrategy = ({ log, oauthSecret }) => () => ({
 	authenticate: async ({ state, headers: { authorization }}, h) => {
@@ -24,8 +25,7 @@ export const createAuthStrategy = ({ log, oauthSecret }) => () => ({
 		}
 		if (credentials.email) {
 			log(['auth','debug'], JSON.stringify({
-				name: credentials.name,
-				email: credentials.email
+				email: obscureEmail(credentials.email)
 			}))
 		}
 		return h.authenticated({ credentials })

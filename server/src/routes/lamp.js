@@ -14,7 +14,10 @@ export const createRoutes = ({
 		log,
 		gcpIotCoreQueue
 	})
-	const { switchLampLight } = device.lamp
+	const {
+		switchLampLight,
+		setLedArray
+	} = device.lamp
 	return [{
 		method: 'GET',
 		path: '/api/devices/{deviceId}/light/{onOrOff}',
@@ -27,6 +30,24 @@ export const createRoutes = ({
 				project,
 				deviceId,
 				onOrOff
+			})
+			.then(state => h.response(JSON.stringify(state)))
+			.catch(err => handleError(err, h))
+	}, {
+		method: 'POST',
+		path: '/api/devices/{deviceId}/light/led/array',
+		config: {
+			auth: 'default',
+			payload: { allow: 'application/json' }
+		},
+		handler: ({ params: { deviceId }, payload: array }, h) =>
+            setLedArray({
+				log,
+				project,
+				registry,
+				region,
+				deviceId,
+				array
 			})
 			.then(state => h.response(JSON.stringify(state)))
 			.catch(err => handleError(err, h))

@@ -6,7 +6,10 @@ import { CheckAuth } from '../check-auth'
 
 import { loggedOut } from '../../actions/auth'
 import { getDeviceState, nameDevice } from '../../actions/device'
-import { toggleLight } from '../../actions/lamp'
+import {
+	toggleLight,
+	setLedArray
+} from '../../actions/lamp'
 
 import DeviceDetails from '../../presentation/device-details'
 
@@ -48,7 +51,8 @@ const mapDispatch = dispatch => ({
 	loggedOut: ui => dispatch(loggedOut(ui)),
 	getDeviceState: id => dispatch(getDeviceState(id)),
 	nameDevice: ({ id, name }) => dispatch(nameDevice({ id, name })),
-	toggleLight: ({ id }) => dispatch(toggleLight({ id }))
+	toggleLight: ({ id }) => dispatch(toggleLight({ id })),
+	setLedArray: ({ id, array }) => dispatch(setLedArray({ id, array }))
 })
 
 export default CheckAuth(connect(mapState, mapDispatch)(Device))

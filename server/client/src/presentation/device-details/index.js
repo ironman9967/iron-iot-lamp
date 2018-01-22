@@ -13,8 +13,8 @@ import Paper from 'material-ui/Paper'
 import Chip from 'material-ui/Chip'
 
 import DeviceName from '../device-name'
-
 import LampLightButton from '../lamp-light-button'
+import LampLightColor from '../lamp-light-color'
 
 const styles = {
 	appBarTitle: {
@@ -61,6 +61,19 @@ const styles = {
 				display: 'inline-block',
 				float: 'right'
 			}
+		},
+		color: {
+			container: {
+				height: '70px',
+				width: 'calc(100% - 20px)'
+			},
+			sliderContainer: {
+				display: 'inline-block',
+				width: '100%',
+				paddingTop: '10px',
+				paddingLeft: '10px',
+				paddingRight: '10px'
+			}
 		}
 	}
 }
@@ -74,8 +87,7 @@ class DeviceDetails extends Component {
 	}
 
 	delayUpdate() {
-		this.displayUpdater =
-			setTimeout(() => this.updateLastUpdated(), 500)
+		this.displayUpdater = setTimeout(() => this.updateLastUpdated(), 500)
 	}
 
 	updateLastUpdated() {
@@ -128,10 +140,17 @@ class DeviceDetails extends Component {
 			switch (device.type) {
 				case 'lamp':
 					return (
-						<div style={styles.lamp.toggle.container}>
-							<div style={styles.lamp.toggle.label}>Light</div>
-							<div style={styles.lamp.toggle.buttonContainer}>
-								<LampLightButton {...device} />
+						<div>
+							<div style={styles.lamp.toggle.container}>
+								<div style={styles.lamp.toggle.label}>Light</div>
+								<div style={styles.lamp.toggle.buttonContainer}>
+									<LampLightButton {...device} />
+								</div>
+							</div>
+							<div style={styles.lamp.color.container}>
+								<div style={styles.lamp.color.sliderContainer}>
+									<LampLightColor {...device} />
+								</div>
 							</div>
 						</div>
 					)

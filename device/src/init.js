@@ -6,31 +6,13 @@ load('api_gpio.js');
 load('api_mqtt.js');
 load('api_timer.js');
 
-// let pin = 26;
-// let numPixels = 60;
-// let len = numPixels * 4;
-// let data = Sys.malloc(len);
-// for(let i = 0; i < len; i++) {
-//   data[i] = 7;
-// }
-
-// GPIO.set_mode(pin, GPIO.MODE_OUTPUT);
-// GPIO.write(pin,0);
-// Sys.usleep(50);
-// BitBang.write(pin,BitBang.DELAY_100NSEC, 4,8.5,8,4.5,data,len);
-// GPIO.write(pin,0);
-// Sys.usleep(50);
-// GPIO.write(pin,1);
-
 let NeoPixel = {
 	create: function(pin, numPixels) {
 		GPIO.set_mode(pin, GPIO.MODE_OUTPUT);
-		GPIO.write(pin, 0);  // Keep in reset.
+		GPIO.write(pin, 0);
 		let s = Object.create({
 			pin: pin,
 			len: numPixels * 4,
-			// Note: memory allocated here is currently not released.
-			// This should be ok for now, we don't expect strips to be re-created.
 			data: Sys.malloc(numPixels * 4),
 			setPixel: NeoPixel.set,
 			clear: NeoPixel.clear,
@@ -39,27 +21,17 @@ let NeoPixel = {
 		s.clear();
 		return s;
 	},
-
-	// ## **`strip.setPixel(i, r, g, b, w)`**
-	// Set i-th's pixel's RGB value.
-	// Note that this only affects in-memory value of the pixel.
-	set: function(i, r, g, b, w) {
-		this.data[i * 4] = g;
-		this.data[i * 4 + 1] = r;
-		this.data[i * 4 + 2] = b;
-		this.data[i * 4 + 3] = w;
+	set: function(pixel, rgbw) {
+		this.data[pixel * 4] = rgbw.g;
+		this.data[pixel * 4 + 1] = rgbw.r;
+		this.data[pixel * 4 + 2] = rgbw.b;
+		this.data[pixel * 4 + 3] = rgbw.w;
 	},
-
-	// ## **`strip.clear()`**
-	// Clear in-memory values of the pixels.
 	clear: function() {
 		for (let i = 0; i < this.len; i++) {
 			this.data[i] = 0;
 		}
 	},
-
-	// ## **`strip.show()`**
-	// Output values of the pixels.
 	show: function() {
 		GPIO.write(this.pin, 0);
 		Sys.usleep(50);
@@ -87,46 +59,34 @@ function pubState(state) {
 	}
 }
 
-
-// let animating = false;
-
-
 MQTT.sub(configTopic, function(conn, topic, msg) {
 	print('config update: ' + msg);
 	let config = JSON.parse(msg);
-	if (config) {
-		if (config.light) {
-			if (config.light.on) {
-				print('turning on light');
-				for (let i = 0; i < numPixels; i++) {
-					strip.setPixel(i /* pixel */, 63, 0, 0, 0);
-				}
-				print("-----------------------------------------");
-				// animating=true;
+	if (!config.light) {
+		config.light = { on: false }
+	}
+	if (!config.light.led) {
+		config.light.led = {}
+	}
+	if (!config.light.led.array) {
+		config.light.led.array = []
+	}
+	if (config.light.on) {
+		for (let pixel = 0; pixel < numPixels; pixel++) {
+			if (config.light.led.array[pixel]) {
+				strip.setPixel(pixel, config.light.led.array[pixel]);
 			}
 			else {
-
-				print('turning off light');
-				strip.clear();
-				print("-----------------------------------------");
-
+				strip.setPixel(pixel, { r: 0, g: 0, b: 0, w: 0 });
 			}
-			strip.show();
 		}
+		print("-----------------------------------------");
 	}
+	else {
+		print('turning off light');
+		strip.clear();
+		print("-----------------------------------------");
+	}
+	strip.show();
 	pubState(config);
 }, null);
-
-
-// Timer.set(10000, Timer.REPEAT, function() {
-// 	if(animating){
-// 		for (let i = 0; i < numPixels; i++) {
-// 			strip.setPixel(i /* pixel */, Math.floor(Math.random()*255), Math.floor(Math.random()*255), Math.floor(Math.random()*255), Math.floor(Math.random()*10));
-// 		}
-// 		strip.show();
-// 	}
-// 	else{
-// 		strip.clear();
-// 		strip.show();
-// 	}
-// }, null);

@@ -1,5 +1,8 @@
 
-import { LIGHT_TOGGLED } from '../actions/lamp'
+import {
+	LIGHT_TOGGLED,
+	LIGHT_LED_ARRAY_SET
+} from '../actions/lamp'
 
 export default (state = {
 	light: {
@@ -27,6 +30,21 @@ export default (state = {
 				light: {
 					...state.light,
 					on: action.device.light.on
+				}
+			}
+		case LIGHT_LED_ARRAY_SET:
+			return {
+				...state,
+				meta: {
+					...state.meta,
+					updatedAt: action.device.meta.updatedAt
+				},
+				light: {
+					...state.light,
+					led: {
+						...state.light.led,
+						array: action.device.light.led.array
+					}
 				}
 			}
 		default:

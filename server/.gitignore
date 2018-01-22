@@ -8,6 +8,8 @@ dist/
 app.yaml
 start-local.sh
 
+google-cloud-sdk/
+
 iron-iot-lamp.*.json
 
 src/google-oauth-secret.*.json

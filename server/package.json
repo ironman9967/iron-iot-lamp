@@ -40,6 +40,7 @@
 		"lodash": "^4.17.4",
 		"node-fetch": "^1.7.3",
 		"npm-watch": "^0.3.0",
+		"obscure-email": "^1.0.7",
 		"rxjs": "^5.5.6"
 	},
 	"babel": {

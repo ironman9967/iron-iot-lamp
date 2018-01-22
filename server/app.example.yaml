@@ -3,6 +3,7 @@ env: flex
 env_variables:
   GCP_PROJECT: 'my-gcp-project'
   GCP_REGION: 'us-central1'
+  GCP_OAUTH_SECRET: 'my-oauth-secret'
   GCP_IOT_REGISTRY: 'my-gcp-iot-core-registry'
   GCP_SRV_ACCT: 'my-gcp-service-account-email@my-gcp-project.iam.gserviceaccount.com'
   GCP_SRV_ACCT_KEY_FILE: 'my-gcp-service-account-password-file-JSON-FILE-ONLY!.json'

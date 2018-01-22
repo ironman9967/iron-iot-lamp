@@ -7,9 +7,6 @@ import CircularProgress from 'material-ui/CircularProgress'
 import LightBulbIcon from 'material-ui/svg-icons/action/lightbulb-outline'
 
 const styles = {
-	button: {
-
-	},
 	spinner: {
 		marginRight: '10px'
 	}
@@ -30,7 +27,7 @@ const LampLightButton = ({
 			tooltipPosition="bottom-left"
 			iconStyle={
 				light.on
-					? { color: 'orange' }
+					? { color: light.led.array[0] || 'orange' }
 					: { color: 'black' }
 			}
 		>
