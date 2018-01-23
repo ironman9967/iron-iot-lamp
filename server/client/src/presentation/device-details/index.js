@@ -72,14 +72,12 @@ const styles = {
 	}
 }
 
-const DeviceDetails = props => {
-	const {
-		muiTheme,
-		history: { push },
-		loggedOut,
-		...device
-	} = props
-
+const DeviceDetails = ({
+	muiTheme,
+	history: { push },
+	loggedOut,
+	...device
+}) => {
 	const deviceSpecificHeader = () => {
 		switch (device.type) {
 			case 'lamp':
