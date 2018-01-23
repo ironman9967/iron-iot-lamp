@@ -46,12 +46,10 @@ export const createLamp = ({
 			}
 		}
 	}, {
-		filter: ({ light: { led: { color: current } } }) => {
-			console.log(color, current)
-			return color.r === current.r
+		filter: ({ light: { led: { color: current } } }) =>
+			color.r === current.r
 			&& color.g === current.g
 			&& color.b === current.b
 			//&& color.w === current.w
-		}
 	})
 })

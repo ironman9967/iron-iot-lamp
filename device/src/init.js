@@ -73,11 +73,6 @@ MQTT.sub(configTopic, function(conn, topic, msg) {
 	}
 	if (config.light.on) {
 		print('turning on light');
-		print(
-			config.light.led.color.r,
-			config.light.led.color.g,
-			config.light.led.color.b,
-			config.light.led.color.w);
 		for (let pixel = 0; pixel < numPixels; pixel++) {
 			strip.setPixel(pixel, config.light.led.color);
 		}

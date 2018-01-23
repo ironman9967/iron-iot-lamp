@@ -22,9 +22,7 @@ const LampLightButton = ({
 		}
 	},
 	toggleLight
-}) => {
-	console.log('LampLightButton', r, g, b)
-	return !updating
+}) => !updating
 	? (
 		<IconButton
 			onClick={() => toggleLight({ id })}
@@ -44,6 +42,5 @@ const LampLightButton = ({
 	: (
 		<CircularProgress style={styles.spinner} />
 	)
-}
 
 export default LampLightButton
