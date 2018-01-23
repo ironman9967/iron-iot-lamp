@@ -1,7 +1,7 @@
 
 import {
 	LIGHT_TOGGLED,
-	LIGHT_LED_ARRAY_SET
+	LIGHT_LED_COLOR_SET
 } from '../actions/lamp'
 
 export default (state = {
@@ -11,7 +11,7 @@ export default (state = {
 			model: 'neopixel strip',
 			type: 'RGBW',
 			count: 60,
-			array: []
+			color: { r: 0, g: 0, b: 0, w: 0 }
 		},
 		animation: {
 			current: null,
@@ -32,7 +32,7 @@ export default (state = {
 					on: action.device.light.on
 				}
 			}
-		case LIGHT_LED_ARRAY_SET:
+		case LIGHT_LED_COLOR_SET:
 			return {
 				...state,
 				meta: {
@@ -43,7 +43,7 @@ export default (state = {
 					...state.light,
 					led: {
 						...state.light.led,
-						array: action.device.light.led.array
+						color: action.device.light.led.color
 					}
 				}
 			}

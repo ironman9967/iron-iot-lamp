@@ -26,13 +26,13 @@ export const createLamp = ({
 			? on
 			: !on
 	}),
-	setLedArray: ({
+	setLedColor: ({
 		log,
 		project,
 		registry,
 		region,
 		deviceId,
-		array
+		color
 	}) => publishDeviceConfig({
 		log,
 		project,
@@ -42,21 +42,16 @@ export const createLamp = ({
 	}, {
 		light: {
 			led: {
-				array
+				color
 			}
 		}
 	}, {
-		filter: ({ light: { led: { array: currentArray } } }) =>{
-			let match = true
-			for (let i = 0; i < array.length && match; i++) {
-				const { r: newR, g: newG, b: newB, w: newW } = array[i]
-				const { r: curR, g: curG, b: curB, w: curW } = currentArray[i]
-				match = newR === curR
-					&& newG === curG
-					&& newB === curB
-					&& newW === curW
-			}
-			return match
+		filter: ({ light: { led: { color: current } } }) => {
+			console.log(color, current)
+			return color.r === current.r
+			&& color.g === current.g
+			&& color.b === current.b
+			//&& color.w === current.w
 		}
 	})
 })

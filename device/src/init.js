@@ -21,11 +21,11 @@ let NeoPixel = {
 		s.clear();
 		return s;
 	},
-	set: function(pixel, rgbw) {
-		this.data[pixel * 4] = rgbw.g;
-		this.data[pixel * 4 + 1] = rgbw.r;
-		this.data[pixel * 4 + 2] = rgbw.b;
-		this.data[pixel * 4 + 3] = rgbw.w;
+	set: function(pixel, color) {
+		this.data[pixel * 4] = color.g;
+		this.data[pixel * 4 + 1] = color.r;
+		this.data[pixel * 4 + 2] = color.b;
+		this.data[pixel * 4 + 3] = color.w;
 	},
 	clear: function() {
 		for (let i = 0; i < this.len; i++) {
@@ -68,17 +68,18 @@ MQTT.sub(configTopic, function(conn, topic, msg) {
 	if (!config.light.led) {
 		config.light.led = {}
 	}
-	if (!config.light.led.array) {
-		config.light.led.array = []
+	if (!config.light.led.color) {
+		config.light.led.color = { r: 0, g: 0, b: 0, w: 0 }
 	}
 	if (config.light.on) {
+		print('turning on light');
+		print(
+			config.light.led.color.r,
+			config.light.led.color.g,
+			config.light.led.color.b,
+			config.light.led.color.w);
 		for (let pixel = 0; pixel < numPixels; pixel++) {
-			if (config.light.led.array[pixel]) {
-				strip.setPixel(pixel, config.light.led.array[pixel]);
-			}
-			else {
-				strip.setPixel(pixel, { r: 0, g: 0, b: 0, w: 0 });
-			}
+			strip.setPixel(pixel, config.light.led.color);
 		}
 		print("-----------------------------------------");
 	}

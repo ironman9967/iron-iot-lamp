@@ -16,7 +16,7 @@ export const createRoutes = ({
 	})
 	const {
 		switchLampLight,
-		setLedArray
+		setLedColor
 	} = device.lamp
 	return [{
 		method: 'GET',
@@ -35,19 +35,19 @@ export const createRoutes = ({
 			.catch(err => handleError(err, h))
 	}, {
 		method: 'POST',
-		path: '/api/devices/{deviceId}/light/led/array',
+		path: '/api/devices/{deviceId}/light/led/color',
 		config: {
 			auth: 'default',
 			payload: { allow: 'application/json' }
 		},
-		handler: ({ params: { deviceId }, payload: array }, h) =>
-            setLedArray({
+		handler: ({ params: { deviceId }, payload: color }, h) => 
+            setLedColor({
 				log,
 				project,
 				registry,
 				region,
 				deviceId,
-				array
+				color
 			})
 			.then(state => h.response(JSON.stringify(state)))
 			.catch(err => handleError(err, h))

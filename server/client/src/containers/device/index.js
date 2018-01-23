@@ -8,7 +8,7 @@ import { loggedOut } from '../../actions/auth'
 import { getDeviceState, nameDevice } from '../../actions/device'
 import {
 	toggleLight,
-	setLedArray
+	setLedColor
 } from '../../actions/lamp'
 
 import DeviceDetails from '../../presentation/device-details'
@@ -52,7 +52,7 @@ const mapDispatch = dispatch => ({
 	getDeviceState: id => dispatch(getDeviceState(id)),
 	nameDevice: ({ id, name }) => dispatch(nameDevice({ id, name })),
 	toggleLight: ({ id }) => dispatch(toggleLight({ id })),
-	setLedArray: ({ id, array }) => dispatch(setLedArray({ id, array }))
+	setLedColor: ({ id, color }) => dispatch(setLedColor({ id, color }))
 })
 
 export default CheckAuth(connect(mapState, mapDispatch)(Device))
