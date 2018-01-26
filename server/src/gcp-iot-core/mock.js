@@ -37,7 +37,7 @@ export const createGcpIotCore = ({
 		config
 	}) => {
 		currentConfig = config
-		return Promise.resolve('PUBISH MOCKED')
+		return Promise.resolve('PUBLISH MOCKED')
 	},
 
 	getDeviceState: ({
