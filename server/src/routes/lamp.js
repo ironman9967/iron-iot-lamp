@@ -5,14 +5,14 @@ import { createDevice } from '../device'
 
 export const createRoutes = ({
 	log,
-	gcpIotCoreQueue,
+	gcpIotCore,
 	registry,
 	region,
 	project
 }) => {
 	const device = createDevice({
 		log,
-		gcpIotCoreQueue
+		gcpIotCore
 	})
 	const {
 		switchLampLight,
@@ -40,7 +40,7 @@ export const createRoutes = ({
 			auth: 'default',
 			payload: { allow: 'application/json' }
 		},
-		handler: ({ params: { deviceId }, payload: color }, h) => 
+		handler: ({ params: { deviceId }, payload: color }, h) =>
             setLedColor({
 				log,
 				project,

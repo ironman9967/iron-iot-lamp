@@ -4,11 +4,11 @@ import { createLamp } from './lamp'
 
 export const createDevice = ({
 	log,
-	gcpIotCoreQueue
+	gcpIotCore
 }) => {
 	const config = createConfig({
 		log,
-		gcpIotCoreQueue
+		gcpIotCore
 	})
 	const lamp = createLamp({
 		config

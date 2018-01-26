@@ -1,6 +1,5 @@
 
 import path from 'path'
-import url from 'url'
 
 import Hapi from 'hapi'
 import Inert from 'inert'
@@ -41,7 +40,9 @@ const authStrategy = createAuthStrategy({
 
 const gcpIotCoreQueue = []
 
-export async function provision() {
+export async function provision({
+	createGcpIotCore
+}) {
 	await server.register(Inert)
 
 	server.events.on('log', logHandler);
@@ -51,12 +52,16 @@ export async function provision() {
 	server.auth.scheme('jwt', authStrategy)
 	server.auth.strategy('default', 'jwt')
 
+	const gcpIotCoreQueue = []
 	const gcpRoutes = {
 		log,
 		region,
 		project,
 		registry,
-		gcpIotCoreQueue
+		gcpIotCore: createGcpIotCore({
+			log,
+			gcpIotCoreQueue
+		})
 	}
 
 	createAppRoutes().forEach(addRoute)

@@ -14,4 +14,4 @@ ENV DOCKER TRUE
 
 EXPOSE 8080
 
-CMD ["sh", "./scripts/start.sh"]
+CMD ["npm", "run", "start"]

@@ -4,19 +4,22 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"watch": "npm-watch",
 		"build-server": "rm -rf dist && babel src --ignore node_modules --copy-files --out-dir dist",
-		"copy-client": "rm -rf dist/client && mkdir dist/client && cp -R client/build/ dist/client/build",
 		"build-client": "cd client && npm i && npm run build && cd .. && npm run copy-client",
+		"copy-client": "rm -rf dist/client && mkdir dist/client && cp -R client/build/ dist/client/build",
 		"build": "npm run build-server && npm run build-client",
 		"docker-build": "docker-compose build --force-rm",
 		"docker-start": "docker-compose up -d",
 		"docker-stop": "docker-compose down",
 		"docker-prep": "npm run docker-stop && npm run docker-build && npm run docker-start",
 		"start-docker": "npm run docker-prep && docker logs server_iron-iot-lamp_1 -f",
-		"start": "npm run build && node dist/index.js",
+		"start": "npm run build && ./scripts/start.sh",
+		"start-server": "npm run build-server && ./scripts/start.sh",
+		"local": "./scripts/start.local.sh",
+		"local-server": "./scripts/start.local-server.sh",
 		"deploy": "gcloud app deploy -q",
-		"deploy-tail-logs": "npm run deploy && gcloud app logs tail -s default"
+		"deploy-tail-logs": "npm run deploy && gcloud app logs tail -s default",
+		"watch": "npm-watch"
 	},
 	"repository": {
 		"type": "git",
@@ -28,9 +31,13 @@
 		"url": "https://github.com/ironman9967/iron-iot-lamp/issues"
 	},
 	"homepage": "https://github.com/ironman9967/iron-iot-lamp#readme",
+	"devDependencies": {
+		"npm-watch": "^0.3.0"
+	},
 	"dependencies": {
 		"babel-cli": "^6.26.0",
 		"babel-plugin-transform-object-rest-spread": "^6.26.0",
+		"babel-plugin-dynamic-import-node": "^1.2.0",
 		"babel-polyfill": "^6.26.0",
 		"babel-preset-env": "^1.6.1",
 		"good": "^7.3.0",
@@ -39,20 +46,20 @@
 		"jwt-simple": "^0.5.1",
 		"lodash": "^4.17.4",
 		"node-fetch": "^1.7.3",
-		"npm-watch": "^0.3.0",
 		"obscure-email": "^1.0.7",
 		"rxjs": "^5.5.6"
 	},
 	"babel": {
 		"plugins": [
-			"transform-object-rest-spread"
+			"transform-object-rest-spread",
+			"dynamic-import-node"
 		],
 		"presets": [
 			"env"
 		]
 	},
 	"watch": {
-		"start": {
+		"local": {
 			"patterns": [
 				"src"
 			],

@@ -5,7 +5,7 @@ import { createDevice } from '../device'
 
 export const createRoutes = ({
 	log,
-	gcpIotCoreQueue,
+	gcpIotCore,
 	registry,
 	region,
 	project
@@ -17,7 +17,7 @@ export const createRoutes = ({
 		nameDevice
 	} = createDevice({
 		log,
-		gcpIotCoreQueue
+		gcpIotCore
 	})
 	return [{
 		method: 'POST',
