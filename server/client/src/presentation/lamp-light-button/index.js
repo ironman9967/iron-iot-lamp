@@ -7,8 +7,17 @@ import CircularProgress from 'material-ui/CircularProgress'
 import LightBulbIcon from 'material-ui/svg-icons/action/lightbulb-outline'
 
 const styles = {
+	iconButton: {
+	    width: 64,
+	    height: 64
+	},
+	icon: {
+	    width: 36,
+	    height: 36
+	},
 	spinner: {
-		marginRight: '10px'
+		marginRight: 12,
+		marginTop: 12
 	}
 }
 
@@ -22,25 +31,35 @@ const LampLightButton = ({
 		}
 	},
 	toggleLight
-}) => !updating
-	? (
-		<IconButton
-			onClick={() => toggleLight({ id })}
-			tooltip={
-				`turn lamp ${on ? 'off' : 'on '}`
-			}
-			tooltipPosition="bottom-left"
-			iconStyle={
-				on
-					? { color: `rgb(${r}, ${g}, ${b})` || 'orange' }
-					: { color: 'black' }
-			}
-		>
-			<LightBulbIcon />
-		</IconButton>
-	)
-	: (
-		<CircularProgress style={styles.spinner} />
-	)
+}) => {
+	if (on) {
+		styles.icon.color = r != void 0
+			? `rgb(${r}, ${g}, ${b})`
+			: 'orange'
+	}
+	else {
+		styles.icon.color = 'black'
+	}
+
+console.log(styles.icon)
+
+	return !updating
+		? (
+			<IconButton
+				style={styles.iconButton}
+				iconStyle={styles.icon}
+				onClick={() => toggleLight({ id })}
+				tooltip={
+					`turn lamp ${on ? 'off' : 'on'}`
+				}
+				tooltipPosition="bottom-left"
+			>
+				<LightBulbIcon />
+			</IconButton>
+		)
+		: (
+			<CircularProgress style={styles.spinner} />
+		)
+}
 
 export default LampLightButton

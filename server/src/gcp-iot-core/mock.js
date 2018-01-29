@@ -1,4 +1,6 @@
 
+const delay = 500
+
 export const createGcpIotCore = ({
 	log,
 	queue = [],
@@ -37,7 +39,9 @@ export const createGcpIotCore = ({
 		config
 	}) => {
 		currentConfig = config
-		return Promise.resolve('PUBLISH MOCKED')
+		return new Promise((resolve, reject) => {
+			setTimeout(() => resolve('PUBLISH MOCKED'), delay)
+		})
 	},
 
 	getDeviceState: ({
@@ -45,11 +49,17 @@ export const createGcpIotCore = ({
 		registry,
 		region,
 		deviceId
-	}) => Promise.resolve(currentConfig),
+	}) => new Promise((resolve, reject) => {
+		setTimeout(() => resolve(currentConfig), delay)
+	}),
 
 	getDevices: ({
 		registry,
 		region,
 		project
-	}) => Promise.resolve([ currentConfig ])
+	}) => new Promise((resolve, reject) => {
+		setTimeout(() => resolve([
+			currentConfig
+		]), delay)
+	})
 })

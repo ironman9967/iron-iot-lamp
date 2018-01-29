@@ -21,35 +21,35 @@ const styles = {
 		cursor: 'pointer'
 	},
 	paper: {
-		margin: '10px'
+		margin: 10
 	},
 	deviceHeader: {
-		paddingTop: '10px',
-		paddingLeft: '10px',
-		fontSize: '30px'
+		paddingTop: 10,
+		paddingLeft: 10,
+		fontSize: 30
 	},
 	deviceName: {
-		paddingLeft: '10px'
+		paddingLeft: 10
 	},
 	lamp: {
 		header: {
 			display: 'flex',
 			flexWrap: 'wrap',
-			paddingTop: '10px',
-			paddingLeft: '10px'
+			paddingTop: 10,
+			paddingLeft: 10
 		},
 		chips: {
-			margin: '4px',
-			fontSize: '12px'
+			margin: 4,
+			fontSize: 12
 		},
 		toggle: {
 			container: {
-				height: '48px'
+				height: 64
 			},
 			label: {
 				display: 'inline-block',
-				paddingLeft: '10px',
-				paddingTop: '14px'
+				paddingLeft: 10,
+				paddingTop: 25
 			},
 			buttonContainer: {
 				display: 'inline-block',
@@ -58,15 +58,15 @@ const styles = {
 		},
 		color: {
 			container: {
-				height: '70px',
+				height: 70,
 				width: 'calc(100% - 20px)'
 			},
 			sliderContainer: {
 				display: 'inline-block',
 				width: '100%',
-				paddingTop: '10px',
-				paddingLeft: '10px',
-				paddingRight: '10px'
+				paddingTop: 10,
+				paddingLeft: 10,
+				paddingRight: 10
 			}
 		}
 	}
