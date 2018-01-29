@@ -40,14 +40,11 @@ const LampLightButton = ({
 	else {
 		styles.icon.color = 'black'
 	}
-
-console.log(styles.icon)
-
 	return !updating
 		? (
 			<IconButton
-				style={styles.iconButton}
-				iconStyle={styles.icon}
+				style={{ ...styles.iconButton }}
+				iconStyle={{ ...styles.icon }}
 				onClick={() => toggleLight({ id })}
 				tooltip={
 					`turn lamp ${on ? 'off' : 'on'}`
@@ -58,7 +55,7 @@ console.log(styles.icon)
 			</IconButton>
 		)
 		: (
-			<CircularProgress style={styles.spinner} />
+			<CircularProgress style={{ ...styles.spinner }} />
 		)
 }
 
